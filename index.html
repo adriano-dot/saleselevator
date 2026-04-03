@@ -1321,7 +1321,7 @@ footer {
 <!-- ===========================
      COO SECTION
 =========================== -->
-<section class="founder-section" style="background: var(--color-bg-dark2);">
+<section class="founder-section" style="background: var(--color-bg-dark2); color: #ffffff;">
   <div class="container">
     <div class="founder-inner">
       <div class="founder-content reveal">
@@ -1407,19 +1407,19 @@ footer {
 
         <div class="form-group">
           <label>Seu nome</label>
-          <input type="text" placeholder="Como podemos te chamar?">
+          <input type="text" id="form-nome" placeholder="Como podemos te chamar?">
         </div>
         <div class="form-group">
           <label>E-mail corporativo</label>
-          <input type="email" placeholder="seu@empresa.com.br">
+          <input type="email" id="form-email" placeholder="seu@empresa.com.br">
         </div>
         <div class="form-group">
           <label>WhatsApp</label>
-          <input type="tel" placeholder="(11) 9 0000-0000">
+          <input type="tel" id="form-whatsapp" placeholder="(11) 9 0000-0000">
         </div>
         <div class="form-group">
           <label>Tamanho do time comercial</label>
-          <select>
+          <select id="form-time">
             <option value="" disabled selected>Selecione</option>
             <option>Só eu (solopreneur)</option>
             <option>2 a 5 vendedores</option>
@@ -1429,7 +1429,7 @@ footer {
           </select>
         </div>
 
-        <button class="btn-primary" type="button">QUERO MEU DIAGNÓSTICO GRATUITO →</button>
+        <button class="btn-primary" type="button" id="form-submit">QUERO MEU DIAGNÓSTICO GRATUITO →</button>
         <p class="form-disclaimer">🔒 Seus dados estão seguros. Não compartilhamos com terceiros e não enviamos spam.</p>
       </div>
     </div>
@@ -1604,5 +1604,46 @@ const counterObserver = new IntersectionObserver((entries) => {
 numberItems.forEach(el => counterObserver.observe(el));
 </script>
 
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var btn = document.getElementById('form-submit');
+    if (!btn) return;
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var nome = document.getElementById('form-nome')?.value || '';
+      var email = document.getElementById('form-email')?.value || '';
+      var whatsapp = document.getElementById('form-whatsapp')?.value || '';
+      var time = document.getElementById('form-time')?.value || '';
+      if (!nome || !email) {
+        alert('Por favor, preencha nome e e-mail.');
+        return;
+      }
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+      fetch('https://script.google.com/macros/s/AKfycby8APMn-ZCG1zxTnakrKN3jecu2DVlp9txp8NdBcBu5aGcSdmpEQdcs_KHeo26flZmc/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ nome: nome, email: email, whatsapp: whatsapp, time: time })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.status === 'success') {
+          btn.textContent = 'Diagnóstico Solicitado! ✓';
+          btn.style.background = '#22c55e';
+        } else {
+          btn.textContent = 'QUERO MEU DIAGNÓSTICO GRATUITO →';
+          btn.disabled = false;
+          alert('Erro ao enviar. Tente novamente.');
+        }
+      })
+      .catch(function() {
+        btn.textContent = 'QUERO MEU DIAGNÓSTICO GRATUITO →';
+        btn.disabled = false;
+        alert('Erro de conexão. Tente novamente.');
+      });
+    });
+  });
+</script>
 </body>
 </html>
