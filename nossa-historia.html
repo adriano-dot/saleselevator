@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nossa História — Sales Elevator</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 38 38' fill='none'%3E%3Cpolygon points='5,28 19,14 33,28 29,28 19,18 9,28' fill='%23c25200' opacity='0.85'/%3E%3Cpolygon points='5,20 19,6 33,20 29,20 19,10 9,20' fill='%23F96500'/%3E%3C/svg%3E">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap');
+:root {
+  --color-primary: #F96500;
+  --color-primary-dark: #d95500;
+  --color-bg-dark: #0D0D0D;
+  --color-bg-dark2: #151616;
+  --color-bg-light: #F7F9FC;
+  --color-text: #33373D;
+  --color-text-secondary: #69727D;
+  --color-border: #CBD0DA;
+  --font: 'Source Sans 3', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); color: var(--color-text); background: var(--color-bg-dark); overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 0 40px; height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(13,13,13,0.97);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.navbar-logo { display: flex; align-items: center; gap: 12px; }
+.navbar-logo svg { width: 38px; height: 38px; flex-shrink: 0; }
+.navbar-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.navbar-logo-text span:first-child { font-weight: 900; font-size: 15px; color: #fff; letter-spacing: 1px; text-transform: uppercase; }
+.navbar-logo-text span:last-child { font-weight: 300; font-size: 10px; color: rgba(255,255,255,0.45); letter-spacing: 2px; text-transform: uppercase; }
+.navbar-back { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.6); transition: color 0.2s; }
+.navbar-back:hover { color: var(--color-primary); }
+.navbar-back svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+.container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+.page-hero {
+  padding: 140px 24px 80px; text-align: center;
+  background: linear-gradient(135deg, #0D0D0D 0%, #1a0a00 50%, #0D0D0D 100%);
+  position: relative; overflow: hidden;
+}
+.page-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(249,101,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(249,101,0,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.page-hero > * { position: relative; z-index: 1; }
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--color-primary); background: rgba(249,101,0,0.12);
+  border: 1px solid rgba(249,101,0,0.3); padding: 8px 20px; border-radius: 50px;
+  margin-bottom: 24px;
+}
+.page-hero h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 16px; }
+.page-hero h1 span { color: var(--color-primary); }
+.page-hero p { font-size: 17px; color: rgba(255,255,255,0.6); max-width: 620px; margin: 0 auto; line-height: 1.7; }
+
+.story-section { padding: 80px 0 100px; }
+
+.story-block { margin-bottom: 64px; }
+.story-block h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 800; color: #fff; margin-bottom: 20px; }
+.story-block h2 span { color: var(--color-primary); }
+.story-block p { font-size: 16px; color: rgba(255,255,255,0.65); line-height: 1.8; margin-bottom: 16px; }
+.story-block p:last-child { margin-bottom: 0; }
+
+.divider {
+  width: 64px; height: 3px; background: var(--color-primary);
+  border-radius: 2px; margin-bottom: 32px;
+}
+
+.values-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  margin: 48px 0;
+}
+.value-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px; padding: 28px 24px;
+}
+.value-card .icon { font-size: 28px; margin-bottom: 12px; }
+.value-card h3 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.value-card p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+blockquote {
+  border-left: 3px solid var(--color-primary);
+  padding: 16px 24px;
+  background: rgba(249,101,0,0.05);
+  border-radius: 0 12px 12px 0;
+  margin: 32px 0;
+}
+blockquote p { font-size: 18px; font-weight: 700; color: #fff !important; font-style: italic; line-height: 1.5; }
+blockquote cite { font-size: 13px; color: rgba(255,255,255,0.4); display: block; margin-top: 8px; font-style: normal; }
+
+.founders-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin: 48px 0;
+}
+.founder-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px; padding: 28px 24px;
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+.founder-avatar {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), #d95500);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 24px; color: #fff;
+  margin-bottom: 16px;
+}
+.founder-card h3 { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+.founder-card .role { font-size: 12px; font-weight: 600; color: var(--color-primary); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+.founder-card p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+.cta-block {
+  text-align: center; padding: 64px 0 0;
+}
+.cta-block h2 { font-size: clamp(24px, 3.5vw, 36px); font-weight: 900; color: #fff; margin-bottom: 16px; }
+.cta-block h2 span { color: var(--color-primary); }
+.cta-block p { font-size: 16px; color: rgba(255,255,255,0.55); margin-bottom: 32px; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--color-primary); color: #fff;
+  font-family: var(--font); font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 16px 32px; border-radius: 50px;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+  border: 2px solid var(--color-primary);
+}
+.btn-primary:hover { background: var(--color-primary-dark); border-color: var(--color-primary-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(249,101,0,0.35); }
+
+footer {
+  background: #060606; border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 32px 0; text-align: center; margin-top: 80px;
+}
+footer p { font-size: 13px; color: rgba(255,255,255,0.2); }
+footer a { color: rgba(255,255,255,0.4); transition: color 0.2s; }
+footer a:hover { color: var(--color-primary); }
+
+@media (max-width: 768px) {
+  .navbar { padding: 0 20px; }
+  .values-grid { grid-template-columns: 1fr; }
+  .founders-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-logo">
+    <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="5,28 19,14 33,28 29,28 19,18 9,28" fill="#c25200" opacity="0.85"/>
+      <polygon points="5,20 19,6 33,20 29,20 19,10 9,20" fill="#F96500"/>
+    </svg>
+    <div class="navbar-logo-text">
+      <span>Sales Elevator</span>
+      <span>Automação Comercial</span>
+    </div>
+  </a>
+  <a href="index.html" class="navbar-back">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Voltar ao site
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="badge">● QUEM SOMOS</div>
+  <h1>Nossa <span>História</span></h1>
+  <p>Nascemos da frustração com processos comerciais caóticos e da certeza de que vendas é ciência, não sorte.</p>
+</div>
+
+<section class="story-section">
+  <div class="container">
+
+    <div class="story-block">
+      <div class="divider"></div>
+      <h2>A origem: <span>da trincheira para o sistema</span></h2>
+      <p>O Sales Elevator não nasceu em um escritório ou em uma sala de aula. Nasceu na prática — em operações comerciais reais, com metas difíceis, equipes desalinhadas e um problema recorrente que nenhuma ferramenta convencional resolvia: a ausência de processo.</p>
+      <p>Geovane Araújo e Danilo Alves se conheceram dentro do ecossistema de performance comercial brasileiro. Cada um, no seu campo, tinha acumulado uma convicção: <strong style="color:#fff">não é falta de esforço que derruba as vendas de uma empresa — é falta de sistema.</strong></p>
+    </div>
+
+    <blockquote>
+      <p>"Pessoas mentem. Números não. Confie no processo e treine as pessoas."</p>
+      <cite>— Geovane Araújo, CEO &amp; Fundador</cite>
+    </blockquote>
+
+    <div class="story-block">
+      <div class="divider"></div>
+      <h2>O problema que <span>nos move</span></h2>
+      <p>A maioria das empresas B2B brasileiras opera com times de vendas no improviso: sem funil claro, sem cadências definidas, sem dashboards acionáveis. O resultado é sempre o mesmo — receita imprevisível, alta rotatividade de vendedores e crescimento dependente de um "vendedor estrela".</p>
+      <p>Construímos o Sales Elevator para mudar isso. Não como mais um software de CRM, mas como uma plataforma completa de automação e inteligência comercial — que transforma caos em processo, e processo em crescimento.</p>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="icon">🎯</div>
+        <h3>Processo acima de talento</h3>
+        <p>Resultados replicáveis não dependem de quem está na posição — dependem do sistema que suporta cada etapa.</p>
+      </div>
+      <div class="value-card">
+        <div class="icon">📊</div>
+        <h3>Dados que geram ação</h3>
+        <p>Métricas existem para guiar decisões, não para encher relatório. Entregamos visibilidade que leva a movimento.</p>
+      </div>
+      <div class="value-card">
+        <div class="icon">🚀</div>
+        <h3>Escala sem heroísmo</h3>
+        <p>Um time com processo bate um time com talento. Construímos a estrutura que permite qualquer um performar.</p>
+      </div>
+    </div>
+
+    <div class="story-block">
+      <div class="divider"></div>
+      <h2>Os <span>fundadores</span></h2>
+    </div>
+
+    <div class="founders-grid">
+      <div class="founder-card">
+        <div class="founder-avatar">G</div>
+        <h3>Geovane Araújo</h3>
+        <p class="role">CEO &amp; Fundador</p>
+        <p>Saiu de Pernambuco com 21 anos, construiu setores comerciais do zero e trabalhou com os maiores nomes do mercado brasileiro. Fechou contratos de R$150.000 no Pix. Hoje lidera a visão de produto e estratégia do Sales Elevator.</p>
+      </div>
+      <div class="founder-card">
+        <div class="founder-avatar">D</div>
+        <h3>Danilo Alves</h3>
+        <p class="role">Co-fundador &amp; COO</p>
+        <p>Mais de 9 anos em operações comerciais de alta performance. Gerenciou um dos maiores squads da V4 Company, formou franqueados e mentores, e aprendeu na prática que previsibilidade de receita nasce de sistema — não de inspiração.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <h2>Pronto para elevar <span>suas vendas</span>?</h2>
+      <p>Solicite um diagnóstico gratuito e descubra o que está travando o crescimento da sua operação comercial.</p>
+      <a href="index.html#contato" class="btn-primary">SOLICITAR DIAGNÓSTICO GRATUITO →</a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Sales Elevator. Todos os direitos reservados. &nbsp;|&nbsp; <a href="termos-de-uso.html">Termos de Uso</a> &nbsp;|&nbsp; <a href="politica-de-privacidade.html">Privacidade</a> &nbsp;|&nbsp; <a href="lgpd.html">LGPD</a></p>
+</footer>
+
+</body>
+</html>
