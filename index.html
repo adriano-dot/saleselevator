@@ -100,9 +100,47 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.saleselevator.com.br/"},
+    {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.saleselevator.com.br/blog/index.html"},
+    {"@type": "ListItem", "position": 3, "name": "Nossa História", "item": "https://www.saleselevator.com.br/nossa-historia.html"},
+    {"@type": "ListItem", "position": 4, "name": "Trabalhe Conosco", "item": "https://www.saleselevator.com.br/trabalhe-conosco.html"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "O que é automação comercial?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Automação comercial é o uso de tecnologia para automatizar tarefas repetitivas do processo de vendas — como prospecção, follow-up, qualificação de leads e gestão de CRM — permitindo que o time de vendas foque em atividades de alto valor."}
+    },
+    {
+      "@type": "Question",
+      "name": "Quanto tempo leva para implementar a automação comercial?",
+      "acceptedAnswer": {"@type": "Answer", "text": "A implementação completa do Sales Elevator, incluindo CRM, playbook e automações, leva de 30 a 60 dias. Os primeiros resultados costumam aparecer ainda no primeiro mês."}
+    },
+    {
+      "@type": "Question",
+      "name": "O Sales Elevator funciona para qual tipo de empresa?",
+      "acceptedAnswer": {"@type": "Answer", "text": "O Sales Elevator é especializado em empresas B2B brasileiras com time de vendas ativo, ticket médio acima de R$ 2.000 e processo comercial em desenvolvimento ou que precisa de escalabilidade."}
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
 <link rel="icon" type="image/svg+xml" href="/logo.svg">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
 
 /* ===== CSS VARIABLES ===== */
 :root {
@@ -114,8 +152,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   --color-text: #33373D;
   --color-text-secondary: #69727D;
   --color-border: #CBD0DA;
-  --font-title: 'Source Sans 3', sans-serif;
-  --font-body: 'Source Sans 3', sans-serif;
+  --font-title: 'Manrope', sans-serif;
+  --font-body: 'Manrope', sans-serif;
   --radius-btn: 50px;
   --transition: 0.3s ease;
 }
@@ -1997,7 +2035,7 @@ numberItems.forEach(el => counterObserver.observe(el));
   color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600;
   cursor: pointer; text-align: left;
   transition: background 0.2s, border-color 0.2s, transform 0.15s;
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: 'Manrope', sans-serif;
   display: flex; align-items: center; gap: 10px;
 }
 .chat-option:hover { background: rgba(249,101,0,0.18); border-color: var(--color-primary); transform: translateX(4px); }
@@ -2006,7 +2044,7 @@ numberItems.forEach(el => counterObserver.observe(el));
   margin: 0 20px 20px;
   display: flex; align-items: center; justify-content: center; gap: 10px;
   background: #25D366; color: #fff;
-  font-family: 'Source Sans 3', sans-serif; font-size: 13px; font-weight: 700;
+  font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 700;
   letter-spacing: 1px; text-transform: uppercase;
   padding: 14px 20px; border-radius: 12px; border: none;
   cursor: pointer; text-decoration: none;
