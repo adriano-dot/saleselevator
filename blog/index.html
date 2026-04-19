@@ -56,8 +56,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap');
-:root{--primary:#F96500;--primary-dark:#d95500;--dark:#0D0D0D;--dark2:#151616;--text:#33373D;--muted:#69727D;--bg:#F7F9FC;--border:#CBD0DA;--font:'Source Sans 3',sans-serif}
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+:root{--primary:#F96500;--primary-dark:#d95500;--dark:#0D0D0D;--dark2:#151616;--text:#33373D;--muted:#69727D;--bg:#F7F9FC;--border:#CBD0DA;--font:'Manrope', sans-serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--font);color:var(--text);overflow-x:hidden;background:#fff}
@@ -169,13 +169,13 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
 <div class="blog-filters">
   <div class="container">
     <div class="filter-inner">
-      <button class="filter-btn active">Todos</button>
-      <button class="filter-btn">Automação</button>
-      <button class="filter-btn">CRM</button>
-      <button class="filter-btn">Prospecção</button>
-      <button class="filter-btn">Estratégia</button>
-      <button class="filter-btn">Gestão Comercial</button>
-      <button class="filter-btn">Performance</button>
+      <button class="filter-btn active" data-filter="todos">Todos</button>
+      <button class="filter-btn" data-filter="automacao">Automação</button>
+      <button class="filter-btn" data-filter="crm">CRM</button>
+      <button class="filter-btn" data-filter="prospeccao">Prospecção</button>
+      <button class="filter-btn" data-filter="estrategia">Estratégia</button>
+      <button class="filter-btn" data-filter="gestao">Gestão Comercial</button>
+      <button class="filter-btn" data-filter="performance">Performance</button>
     </div>
   </div>
 </div>
@@ -201,7 +201,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
       </article>
 
       <!-- POST 2 -->
-      <article class="blog-card">
+      <article class="blog-card" data-filter="crm">
         <div class="blog-card-img">
           <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop&auto=format&q=80" alt="Dashboard CRM para vendas B2B" loading="lazy">
         </div>
@@ -217,7 +217,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
       </article>
 
       <!-- POST 3 -->
-      <article class="blog-card">
+      <article class="blog-card" data-filter="prospeccao">
         <div class="blog-card-img">
           <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=800&h=400&fit=crop&auto=format&q=80" alt="Prospecção automatizada de leads B2B" loading="lazy">
         </div>
@@ -233,7 +233,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
       </article>
 
       <!-- POST 4 -->
-      <article class="blog-card">
+      <article class="blog-card" data-filter="estrategia">
         <div class="blog-card-img">
           <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=400&fit=crop&auto=format&q=80" alt="Funil de vendas B2B com receita previsível" loading="lazy">
         </div>
@@ -249,7 +249,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
       </article>
 
       <!-- POST 5 -->
-      <article class="blog-card">
+      <article class="blog-card" data-filter="gestao">
         <div class="blog-card-img">
           <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop&auto=format&q=80" alt="Equipe de vendas com playbook" loading="lazy">
         </div>
@@ -265,7 +265,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
       </article>
 
       <!-- POST 6 -->
-      <article class="blog-card">
+      <article class="blog-card" data-filter="performance">
         <div class="blog-card-img">
           <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=400&fit=crop&auto=format&q=80" alt="Taxa de conversão em vendas B2B" loading="lazy">
         </div>
@@ -281,7 +281,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
       </article>
 
       <!-- POST 7 -->
-      <article class="blog-card">
+      <article class="blog-card" data-filter="performance">
         <div class="blog-card-img">
           <img src="https://images.unsplash.com/photo-1516387938699-a927bc3a9bab?w=800&h=400&fit=crop&auto=format&q=80" alt="Follow-up de vendas por email e WhatsApp" loading="lazy">
         </div>
@@ -297,7 +297,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
       </article>
 
       <!-- POST 8 -->
-      <article class="blog-card">
+      <article class="blog-card" data-filter="gestao">
         <div class="blog-card-img">
           <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=400&fit=crop&auto=format&q=80" alt="KPIs e indicadores comerciais dashboard" loading="lazy">
         </div>
@@ -313,7 +313,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
       </article>
 
       <!-- POST 9 -->
-      <article class="blog-card">
+      <article class="blog-card" data-filter="automacao">
         <div class="blog-card-img">
           <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&h=400&fit=crop&auto=format&q=80" alt="Escalar vendas sem contratar mais vendedores" loading="lazy">
         </div>
@@ -329,7 +329,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
       </article>
 
       <!-- POST 10 -->
-      <article class="blog-card">
+      <article class="blog-card" data-filter="prospeccao">
         <div class="blog-card-img">
           <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&h=400&fit=crop&auto=format&q=80" alt="SDR automatizado para pré-vendas B2B" loading="lazy">
         </div>
@@ -382,6 +382,14 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.blog-card').forEach(card => {
+      if (filter === 'todos' || card.dataset.filter === filter) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
   });
 });
 </script>

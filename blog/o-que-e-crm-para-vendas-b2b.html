@@ -38,8 +38,8 @@
 }
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap');
-:root{--primary:#F96500;--dark:#0D0D0D;--text:#33373D;--muted:#69727D;--bg:#F7F9FC;--border:#CBD0DA;--font:'Source Sans 3',sans-serif}
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+:root{--primary:#F96500;--dark:#0D0D0D;--text:#33373D;--muted:#69727D;--bg:#F7F9FC;--border:#CBD0DA;--font:'Manrope', sans-serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--font);color:var(--text);background:#fff;overflow-x:hidden}
@@ -55,6 +55,7 @@ img{display:block;max-width:100%}
 .navbar-back{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.6);transition:color .2s}
 .navbar-back:hover{color:var(--primary)}
 .navbar-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+.post-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.25;z-index:0;}
 .post-hero{padding:120px 0 56px;background:var(--dark);position:relative;overflow:hidden}
 .post-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(249,101,0,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(249,101,0,0.04) 1px,transparent 1px);background-size:48px 48px}
 .post-hero .container{position:relative;z-index:1}
@@ -92,7 +93,8 @@ footer .container{display:flex;align-items:center;justify-content:space-between;
 .footer-links{display:flex;gap:20px;flex-wrap:wrap}
 .footer-links a{font-size:13px;color:rgba(255,255,255,0.3);transition:color .2s}
 .footer-links a:hover{color:var(--primary)}
-@media(max-width:768px){.navbar{padding:0 20px}.post-hero{padding:100px 0 40px}}
+@media(max-width:768px){.navbar{padding:0 20px}.post-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.25;z-index:0;}
+.post-hero{padding:100px 0 40px}}
 </style>
 </head>
 <body>
@@ -105,6 +107,7 @@ footer .container{display:flex;align-items:center;justify-content:space-between;
 </nav>
 
 <div class="post-hero">
+  <img class="post-hero-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&h=600&fit=crop&auto=format&q=80" alt="Dashboard CRM para vendas B2B" loading="eager">
   <div class="container">
     <div class="post-category">CRM &amp; Tecnologia</div>
     <h1 class="post-title">O Que é CRM para Vendas B2B e Por Que Sua Empresa Precisa</h1>
