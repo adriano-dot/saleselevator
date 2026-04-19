@@ -471,15 +471,34 @@ button { border: none; cursor: pointer; font-family: var(--font-body); }
 }
 
 /* ===========================
-   SEÇÃO 7 — DEPOIMENTOS
+   SEÇÃO 7 — DEPOIMENTOS (CARROSSEL)
 =========================== */
 .testimonials-section {
   background: #fff;
   padding: 100px 0;
 }
-.testimonials-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+.testimonials-carousel-wrap {
+  position: relative;
 }
+.testimonials-carousel {
+  overflow: hidden;
+}
+.testimonials-track {
+  display: flex;
+  gap: 24px;
+  transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+  will-change: transform;
+}
+.testimonial-card {
+  background: var(--color-bg-light);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 32px;
+  transition: var(--transition);
+  flex: 0 0 calc(33.333% - 16px);
+  min-width: 0;
+}
+.testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.08); }
 .case-ig-link {
   display: inline-flex; align-items: center; gap: 6px;
   font-size: 12px; font-weight: 600; color: var(--color-primary);
@@ -488,17 +507,7 @@ button { border: none; cursor: pointer; font-family: var(--font-body); }
 }
 .case-ig-link:hover { opacity: 0.75; }
 .case-ig-link svg { width: 14px; height: 14px; fill: var(--color-primary); }
-.testimonial-card {
-  background: var(--color-bg-light);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  padding: 32px;
-  transition: var(--transition);
-}
-.testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.08); }
-.stars {
-  display: flex; gap: 4px; margin-bottom: 16px;
-}
+.stars { display: flex; gap: 4px; margin-bottom: 16px; }
 .star { color: var(--color-primary); font-size: 16px; }
 .testimonial-text {
   font-size: 15px; color: var(--color-text); line-height: 1.7;
@@ -515,12 +524,31 @@ button { border: none; cursor: pointer; font-family: var(--font-body); }
   font-family: var(--font-title); font-weight: 800; font-size: 16px; color: #fff;
   flex-shrink: 0;
 }
-.author-name {
-  font-family: var(--font-title); font-weight: 700; font-size: 14px;
-  color: var(--color-text);
+.author-name { font-family: var(--font-title); font-weight: 700; font-size: 14px; color: var(--color-text); }
+.author-company { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+.carousel-nav {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  margin-top: 40px;
 }
-.author-company {
-  font-size: 12px; color: var(--color-text-secondary); margin-top: 2px;
+.carousel-arrow {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: #fff; border: 2px solid var(--color-border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: var(--transition);
+  flex-shrink: 0;
+}
+.carousel-arrow:hover { background: var(--color-primary); border-color: var(--color-primary); }
+.carousel-arrow:hover svg { stroke: #fff; }
+.carousel-arrow svg { width: 20px; height: 20px; stroke: var(--color-text-secondary); fill: none; stroke-width: 2.5; }
+.carousel-dots { display: flex; gap: 8px; }
+.carousel-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--color-border); border: none; cursor: pointer;
+  padding: 0; transition: background 0.2s, transform 0.2s;
+}
+.carousel-dot.active { background: var(--color-primary); transform: scale(1.3); }
+@media (max-width: 768px) {
+  .testimonial-card { flex: 0 0 calc(100% - 0px); }
 }
 
 /* ===========================
@@ -804,66 +832,88 @@ button { border: none; cursor: pointer; font-family: var(--font-body); }
    SEÇÃO 12 — RODAPÉ
 =========================== */
 footer {
-  background: #060606;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  padding: 80px 0 0;
+  background: #080808;
+  border-top: 3px solid var(--color-primary);
+  padding: 0;
+}
+.footer-inner {
+  padding: 72px 0 0;
 }
 .footer-top {
-  display: grid; grid-template-columns: 2fr 1fr; gap: 48px;
-  padding-bottom: 64px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px;
+  padding-bottom: 56px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
 }
 .footer-brand p {
-  font-size: 14px; color: rgba(255,255,255,0.35); line-height: 1.7;
-  margin-top: 16px; max-width: 240px;
+  font-size: 14px; color: rgba(255,255,255,0.35); line-height: 1.75;
+  margin-top: 16px; max-width: 280px;
+}
+.footer-tagline {
+  display: inline-block; margin-top: 20px;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--color-primary);
+  border-left: 2px solid var(--color-primary); padding-left: 12px;
 }
 .footer-socials {
-  display: flex; gap: 12px; margin-top: 24px;
+  display: flex; gap: 10px; margin-top: 24px;
 }
 .social-icon {
-  width: 36px; height: 36px; border-radius: 8px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
   display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,0.4); font-size: 14px;
+  color: rgba(255,255,255,0.4);
   transition: var(--transition);
 }
-.social-icon:hover { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
-.social-icon svg { width: 16px; height: 16px; fill: currentColor; }
+.social-icon:hover { background: var(--color-primary); border-color: var(--color-primary); color: #fff; transform: translateY(-3px); }
+.social-icon svg { width: 17px; height: 17px; fill: currentColor; }
 
 .footer-col h4 {
-  font-family: var(--font-title); font-size: 12px; font-weight: 700;
-  letter-spacing: 2px; text-transform: uppercase;
-  color: rgba(255,255,255,0.5); margin-bottom: 20px;
+  font-family: var(--font-title); font-size: 11px; font-weight: 800;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: rgba(255,255,255,0.6); margin-bottom: 24px;
+  position: relative; padding-bottom: 12px;
 }
-.footer-col ul { display: flex; flex-direction: column; gap: 12px; }
+.footer-col h4::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 24px; height: 2px; background: var(--color-primary); border-radius: 2px;
+}
+.footer-col ul { display: flex; flex-direction: column; gap: 14px; }
 .footer-col ul li a {
-  font-size: 14px; color: rgba(255,255,255,0.3);
-  transition: color 0.2s;
+  font-size: 14px; color: rgba(255,255,255,0.35);
+  transition: color 0.2s, padding-left 0.2s;
+  display: flex; align-items: center; gap: 8px;
 }
-.footer-col ul li a:hover { color: var(--color-primary); }
+.footer-col ul li a::before { content: '→'; font-size: 11px; color: var(--color-primary); opacity: 0; transition: opacity 0.2s; }
+.footer-col ul li a:hover { color: #fff; padding-left: 4px; }
+.footer-col ul li a:hover::before { opacity: 1; }
 
 .footer-bottom {
   padding: 24px 0;
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
 }
-.footer-copyright {
-  font-size: 13px; color: rgba(255,255,255,0.2);
-}
-.footer-legal {
-  display: flex; gap: 24px;
-}
+.footer-copyright { font-size: 13px; color: rgba(255,255,255,0.2); }
+.footer-legal { display: flex; gap: 20px; flex-wrap: wrap; }
 .footer-legal a {
-  font-size: 13px; color: rgba(255,255,255,0.2);
+  font-size: 12px; color: rgba(255,255,255,0.2);
   transition: color 0.2s;
 }
-.footer-legal a:hover { color: rgba(255,255,255,0.5); }
+.footer-legal a:hover { color: var(--color-primary); }
 .footer-seo-tags {
   width: 100%; padding: 16px 0;
   border-top: 1px solid rgba(255,255,255,0.04);
-  font-size: 11px; color: rgba(255,255,255,0.1);
+  font-size: 11px; color: rgba(255,255,255,0.08);
   letter-spacing: 1px; line-height: 1.7;
   text-align: center;
+}
+@media (max-width: 1024px) {
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .footer-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .footer-legal { justify-content: center; }
 }
 
 /* ===========================
@@ -873,8 +923,6 @@ footer {
   .value-inner { grid-template-columns: 1fr; gap: 48px; }
   .value-right { flex-direction: row; }
   .founder-inner { grid-template-columns: 1fr; }
-  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .footer-brand { grid-column: 1 / -1; }
 }
 
 
@@ -887,19 +935,13 @@ footer {
   .numbers-grid { grid-template-columns: 1fr; }
   .number-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
   .number-item:last-child { border-bottom: none; }
-  .testimonials-grid { grid-template-columns: 1fr; }
   .cta-form-inner { grid-template-columns: 1fr; gap: 48px; }
   .founder-inner { gap: 48px; }
-  .footer-top { grid-template-columns: 1fr; }
-  .footer-bottom { flex-direction: column; text-align: center; }
   .value-right { flex-direction: column; }
   .compare-table th, .compare-table td { padding: 14px 16px; font-size: 13px; }
   .hero-buttons { flex-direction: column; align-items: center; }
 }
 
-@media (max-width: 480px) {
-  .footer-legal { flex-wrap: wrap; justify-content: center; gap: 12px; }
-}
 </style>
 </head>
 <body>
@@ -989,24 +1031,30 @@ footer {
   <p class="logos-label">Empresas que já elevaram suas vendas</p>
   <div class="logos-track-wrapper">
     <div class="logos-track" id="logosTrack">
-      <span class="logo-item">CONSTRUCTA</span>
-      <span class="logo-item">NEXFLOW</span>
-      <span class="logo-item">VORTEX CRM</span>
-      <span class="logo-item">ALPHATECH</span>
-      <span class="logo-item">GRUPO MERIDIAN</span>
-      <span class="logo-item">BOOSTIFY</span>
-      <span class="logo-item">PRIMEVO</span>
-      <span class="logo-item">DATALINK</span>
-      <span class="logo-item">ELEVATE GROUP</span>
-      <span class="logo-item">CONSTRUCTA</span>
-      <span class="logo-item">NEXFLOW</span>
-      <span class="logo-item">VORTEX CRM</span>
-      <span class="logo-item">ALPHATECH</span>
-      <span class="logo-item">GRUPO MERIDIAN</span>
-      <span class="logo-item">BOOSTIFY</span>
-      <span class="logo-item">PRIMEVO</span>
-      <span class="logo-item">DATALINK</span>
-      <span class="logo-item">ELEVATE GROUP</span>
+      <span class="logo-item">SETION GROUP</span>
+      <span class="logo-item">CORTE &amp; VISAGISMO</span>
+      <span class="logo-item">SEJA AP</span>
+      <span class="logo-item">INSTITUTO CIMAS</span>
+      <span class="logo-item">ENNEMONT MOREL</span>
+      <span class="logo-item">RICARDO MÁXIMA</span>
+      <span class="logo-item">MEDICAL SAN</span>
+      <span class="logo-item">THIAGO FINCH</span>
+      <span class="logo-item">MARCOS TRIDER</span>
+      <span class="logo-item">FABIANA ZIELASKO</span>
+      <span class="logo-item">CONTADOR EVOLTADO</span>
+      <span class="logo-item">INVESTI MOB EXPERT</span>
+      <span class="logo-item">SETION GROUP</span>
+      <span class="logo-item">CORTE &amp; VISAGISMO</span>
+      <span class="logo-item">SEJA AP</span>
+      <span class="logo-item">INSTITUTO CIMAS</span>
+      <span class="logo-item">ENNEMONT MOREL</span>
+      <span class="logo-item">RICARDO MÁXIMA</span>
+      <span class="logo-item">MEDICAL SAN</span>
+      <span class="logo-item">THIAGO FINCH</span>
+      <span class="logo-item">MARCOS TRIDER</span>
+      <span class="logo-item">FABIANA ZIELASKO</span>
+      <span class="logo-item">CONTADOR EVOLTADO</span>
+      <span class="logo-item">INVESTI MOB EXPERT</span>
     </div>
   </div>
 </section>
@@ -1192,8 +1240,10 @@ footer {
       <h2 class="section-title">Implementamos o Sales Elevator com sucesso nestas empresas</h2>
     </div>
 
-    <div class="testimonials-grid">
-      <div class="testimonial-card reveal">
+    <div class="testimonials-carousel-wrap">
+    <div class="testimonials-carousel">
+    <div class="testimonials-track" id="testimonialsTrack">
+      <div class="testimonial-card">
         <div class="stars">★★★★★</div>
         <p class="testimonial-text">"Estruturamos nossa operação comercial do zero. Em 90 dias, triplicamos o volume de leads qualificados e fechamos os melhores contratos do nosso histórico."</p>
         <div class="testimonial-author">
@@ -1206,7 +1256,7 @@ footer {
         </div>
       </div>
 
-      <div class="testimonial-card reveal reveal-delay-1">
+      <div class="testimonial-card">
         <div class="stars">★★★★★</div>
         <p class="testimonial-text">"A automação de agendamentos e follow-up transformou o atendimento. Hoje nossa agenda é gerenciada com processo — não com achismo."</p>
         <div class="testimonial-author">
@@ -1219,7 +1269,7 @@ footer {
         </div>
       </div>
 
-      <div class="testimonial-card reveal reveal-delay-2">
+      <div class="testimonial-card">
         <div class="stars">★★★★★</div>
         <p class="testimonial-text">"Implementei um funil de vendas real para o meu negócio. Os resultados apareceram já no primeiro mês — mais previsibilidade, mais clientes, mais receita."</p>
         <div class="testimonial-author">
@@ -1232,7 +1282,7 @@ footer {
         </div>
       </div>
 
-      <div class="testimonial-card reveal reveal-delay-3">
+      <div class="testimonial-card">
         <div class="stars">★★★★★</div>
         <p class="testimonial-text">"Automatizamos o processo de captação de alunos e o número de matrículas cresceu de forma consistente. O Sales Elevator trouxe o sistema que faltava."</p>
         <div class="testimonial-author">
@@ -1245,7 +1295,7 @@ footer {
         </div>
       </div>
 
-      <div class="testimonial-card reveal reveal-delay-4">
+      <div class="testimonial-card">
         <div class="stars">★★★★★</div>
         <p class="testimonial-text">"O processo de vendas estruturado me permitiu crescer com consistência. Hoje sei exatamente de onde vem cada cliente e qual canal performa melhor."</p>
         <div class="testimonial-author">
@@ -1258,7 +1308,7 @@ footer {
         </div>
       </div>
 
-      <div class="testimonial-card reveal reveal-delay-5">
+      <div class="testimonial-card">
         <div class="stars">★★★★★</div>
         <p class="testimonial-text">"A cadência de prospecção automatizada mudou o jogo. Saímos de operação reativa para ativa — a previsibilidade de receita virou realidade."</p>
         <div class="testimonial-author">
@@ -1271,7 +1321,7 @@ footer {
         </div>
       </div>
 
-      <div class="testimonial-card reveal">
+      <div class="testimonial-card">
         <div class="stars">★★★★★</div>
         <p class="testimonial-text">"Com o sistema implantado, nosso time de atendimento passou a converter muito mais consultas. O funil ficou claro e o resultado veio rápido."</p>
         <div class="testimonial-author">
@@ -1284,7 +1334,7 @@ footer {
         </div>
       </div>
 
-      <div class="testimonial-card reveal reveal-delay-1">
+      <div class="testimonial-card">
         <div class="stars">★★★★★</div>
         <p class="testimonial-text">"Antes tínhamos muitos leads mas fechávamos poucos. Depois do Sales Elevator, a taxa de conversão subiu e o ciclo de vendas caiu pela metade."</p>
         <div class="testimonial-author">
@@ -1297,7 +1347,7 @@ footer {
         </div>
       </div>
 
-      <div class="testimonial-card reveal reveal-delay-2">
+      <div class="testimonial-card">
         <div class="stars">★★★★★</div>
         <p class="testimonial-text">"Playbooks e automações trouxeram consistência para o meu time. Hoje qualquer vendedor consegue seguir o processo e gerar resultado."</p>
         <div class="testimonial-author">
@@ -1310,7 +1360,7 @@ footer {
         </div>
       </div>
 
-      <div class="testimonial-card reveal reveal-delay-3">
+      <div class="testimonial-card">
         <div class="stars">★★★★★</div>
         <p class="testimonial-text">"Com o CRM e as automações, minha equipe parou de perder tempo com tarefas manuais e focou no que importa: vender e fidelizar."</p>
         <div class="testimonial-author">
@@ -1323,7 +1373,7 @@ footer {
         </div>
       </div>
 
-      <div class="testimonial-card reveal reveal-delay-4">
+      <div class="testimonial-card">
         <div class="stars">★★★★★</div>
         <p class="testimonial-text">"Passamos a converter prospecções frias em clientes recorrentes com um funil estruturado. O crescimento ficou previsível — e isso mudou tudo."</p>
         <div class="testimonial-author">
@@ -1336,7 +1386,7 @@ footer {
         </div>
       </div>
 
-      <div class="testimonial-card reveal reveal-delay-5">
+      <div class="testimonial-card">
         <div class="stars">★★★★★</div>
         <p class="testimonial-text">"Automatizamos a captação de leads imobiliários e a nutrição do funil. Hoje fechamos mais negócios com menos esforço manual da equipe."</p>
         <div class="testimonial-author">
@@ -1349,7 +1399,18 @@ footer {
         </div>
       </div>
 
+    </div><!-- /.testimonials-track -->
+    </div><!-- /.testimonials-carousel -->
+    <div class="carousel-nav">
+      <button class="carousel-arrow" id="carouselPrev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <button class="carousel-arrow" id="carouselNext" aria-label="Próximo">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
     </div>
+    </div><!-- /.testimonials-carousel-wrap -->
   </div>
 </section>
 
@@ -1460,11 +1521,11 @@ footer {
         </div>
       </div>
 
-      <div class="founder-image-placeholder reveal reveal-delay-2">
-        <div class="founder-image-inner">
-          <div class="founder-avatar-big">G</div>
-          <div class="founder-image-name">Geovane Araújo</div>
-          <div class="founder-image-role-tag">CEO &amp; Fundador</div>
+      <div class="founder-image-placeholder reveal reveal-delay-2" style="background:none;padding:0;">
+        <img src="geovane.jpg" alt="Geovane Araújo — CEO &amp; Fundador do Sales Elevator" style="width:100%;height:100%;min-height:480px;object-fit:cover;object-position:center top;display:block;border-radius:20px;" />
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:24px 28px;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 100%);border-radius:0 0 20px 20px;z-index:2;">
+          <div style="font-family:var(--font-title);font-weight:900;font-size:18px;color:#fff;">Geovane Araújo</div>
+          <span style="display:inline-block;margin-top:6px;background:rgba(249,101,0,0.2);border:1px solid rgba(249,101,0,0.4);padding:4px 16px;border-radius:50px;font-size:12px;color:#F96500;font-weight:600;letter-spacing:1px;">CEO &amp; FUNDADOR</span>
         </div>
       </div>
     </div>
@@ -1587,6 +1648,7 @@ footer {
      RODAPÉ
 =========================== -->
 <footer>
+  <div class="footer-inner">
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
@@ -1601,12 +1663,11 @@ footer {
           </div>
         </div>
         <p>Transformamos operações comerciais em máquinas de crescimento previsível, automatizadas e escaláveis para empresas B2B brasileiras.</p>
+        <span class="footer-tagline">Eleve. Automatize. Escale.</span>
         <div class="footer-socials">
-          <!-- LinkedIn -->
           <a href="https://www.linkedin.com/company/saleselevatorcompany/?viewAsMember=true" class="social-icon" title="LinkedIn" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           </a>
-          <!-- Instagram -->
           <a href="https://www.instagram.com/saleselevatoroficial/" class="social-icon" title="Instagram" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
           </a>
@@ -1621,13 +1682,22 @@ footer {
           <li><a href="#contato">Fale Conosco</a></li>
         </ul>
       </div>
+
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="termos-de-uso.html">Termos de Uso</a></li>
+          <li><a href="politica-de-privacidade.html">Política de Privacidade</a></li>
+          <li><a href="lgpd.html">LGPD</a></li>
+        </ul>
+      </div>
     </div>
 
     <div class="footer-bottom">
       <p class="footer-copyright">© 2025 Sales Elevator. Todos os direitos reservados.</p>
       <div class="footer-legal">
         <a href="termos-de-uso.html">Termos de Uso</a>
-        <a href="politica-de-privacidade.html">Política de Privacidade</a>
+        <a href="politica-de-privacidade.html">Privacidade</a>
         <a href="lgpd.html">LGPD</a>
       </div>
     </div>
@@ -1635,6 +1705,7 @@ footer {
     <div class="footer-seo-tags">
       automação comercial · CRM para vendas B2B · prospecção automatizada · funil de vendas · sales operations · playbook de vendas · aumento de conversão · software de vendas Brasil · aceleração comercial · SDR automatizado
     </div>
+  </div>
   </div>
 </footer>
 
@@ -1753,393 +1824,218 @@ numberItems.forEach(el => counterObserver.observe(el));
 </script>
 
 <!-- ===========================
-     CHAT WIDGET
+     CHAT / WHATSAPP WIDGET
 =========================== -->
 <style>
-/* Chat Widget Styles */
 #se-chat-btn {
   position: fixed; bottom: 28px; right: 28px; z-index: 9000;
   width: 60px; height: 60px; border-radius: 50%;
-  background: var(--color-primary);
-  border: none; cursor: pointer;
-  box-shadow: 0 4px 24px rgba(249,101,0,0.5);
+  background: #25D366; border: none; cursor: pointer;
+  box-shadow: 0 4px 24px rgba(37,211,102,0.45);
   display: flex; align-items: center; justify-content: center;
   transition: transform 0.2s, box-shadow 0.2s;
 }
-#se-chat-btn:hover { transform: scale(1.08); box-shadow: 0 8px 32px rgba(249,101,0,0.6); }
-#se-chat-btn svg { width: 28px; height: 28px; fill: #fff; }
-#se-chat-btn .chat-badge {
+#se-chat-btn:hover { transform: scale(1.1); box-shadow: 0 8px 32px rgba(37,211,102,0.6); }
+#se-chat-btn svg { width: 30px; height: 30px; fill: #fff; }
+.chat-pulse {
   position: absolute; top: -4px; right: -4px;
-  width: 18px; height: 18px; border-radius: 50%;
-  background: #22c55e; border: 2px solid #0D0D0D;
-  animation: ping 2s infinite;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--color-primary); border: 2px solid #0D0D0D;
+  animation: pulse 2s infinite;
 }
-@keyframes ping {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.2); opacity: 0.7; }
-}
-
 #se-chat-window {
   position: fixed; bottom: 104px; right: 28px; z-index: 9000;
-  width: 380px; max-width: calc(100vw - 40px);
-  height: 560px; max-height: calc(100vh - 130px);
-  background: #111; border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 20px; box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+  width: 340px; max-width: calc(100vw - 40px);
+  background: #111; border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px; box-shadow: 0 24px 64px rgba(0,0,0,0.55);
   display: flex; flex-direction: column;
-  transform: scale(0.9) translateY(12px);
+  transform: scale(0.92) translateY(12px);
   opacity: 0; pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.22s ease, transform 0.22s ease;
   overflow: hidden;
 }
 #se-chat-window.open { opacity: 1; transform: scale(1) translateY(0); pointer-events: all; }
-
 .chat-header {
   background: linear-gradient(135deg, #1a0800, #2d1100);
-  padding: 18px 20px;
+  padding: 16px 20px;
   display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
 }
 .chat-header-info { display: flex; align-items: center; gap: 12px; }
-.chat-avatar {
-  width: 40px; height: 40px; border-radius: 50%;
+.chat-avatar-wrap {
+  width: 42px; height: 42px; border-radius: 50%;
   background: var(--color-primary);
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+  flex-shrink: 0; position: relative;
 }
-.chat-avatar svg { width: 22px; height: 22px; fill: #fff; }
-.chat-header-text h4 { font-size: 15px; font-weight: 700; color: #fff; }
-.chat-header-text p { font-size: 12px; color: rgba(255,255,255,0.4); }
+.chat-avatar-wrap svg { width: 24px; height: 24px; fill: #fff; }
+.chat-online {
+  position: absolute; bottom: 1px; right: 1px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #22c55e; border: 2px solid #1a0800;
+}
+.chat-header-text h4 { font-size: 14px; font-weight: 700; color: #fff; }
+.chat-header-text p { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
 .chat-close {
-  background: rgba(255,255,255,0.08); border: none; cursor: pointer;
-  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(255,255,255,0.07); border: none; cursor: pointer;
+  width: 30px; height: 30px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,0.6); transition: background 0.2s;
+  color: rgba(255,255,255,0.5); transition: background 0.2s;
 }
 .chat-close:hover { background: rgba(255,255,255,0.15); color: #fff; }
-.chat-close svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
-
-.chat-messages {
-  flex: 1; overflow-y: auto; padding: 20px;
-  display: flex; flex-direction: column; gap: 12px;
-  scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.1) transparent;
+.chat-close svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.chat-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.chat-bot-bubble {
+  background: rgba(255,255,255,0.07); border-radius: 14px; border-bottom-left-radius: 4px;
+  padding: 12px 16px; font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.88);
 }
-.chat-messages::-webkit-scrollbar { width: 4px; }
-.chat-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
-
-.chat-bubble {
-  max-width: 86%; padding: 12px 16px;
-  border-radius: 16px; font-size: 14px; line-height: 1.5;
-  animation: fadeInUp 0.25s ease;
-}
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.chat-bubble.bot {
-  background: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.9);
-  border-bottom-left-radius: 4px;
-  align-self: flex-start;
-}
-.chat-bubble.user {
-  background: var(--color-primary);
-  color: #fff;
-  border-bottom-right-radius: 4px;
-  align-self: flex-end;
-}
-.chat-typing {
-  display: flex; gap: 5px; align-items: center; padding: 14px 16px;
-  background: rgba(255,255,255,0.08); border-radius: 16px; border-bottom-left-radius: 4px;
-  align-self: flex-start; max-width: 72px;
-}
-.chat-typing span {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: rgba(255,255,255,0.4); animation: typing 1.2s infinite;
-}
-.chat-typing span:nth-child(2) { animation-delay: 0.2s; }
-.chat-typing span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes typing {
-  0%, 100% { transform: translateY(0); opacity: 0.4; }
-  50% { transform: translateY(-4px); opacity: 1; }
-}
-
-.chat-quick-replies {
-  display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px 12px;
-}
-.chat-qr {
-  padding: 8px 16px; border-radius: 50px;
-  background: rgba(249,101,0,0.1);
-  border: 1px solid rgba(249,101,0,0.35);
-  color: var(--color-primary); font-size: 13px; font-weight: 600;
-  cursor: pointer; transition: background 0.2s;
+.chat-bot-bubble strong { color: #fff; }
+.chat-options { display: flex; flex-direction: column; gap: 8px; padding: 0 20px 20px; }
+.chat-option {
+  padding: 12px 18px; border-radius: 12px;
+  background: rgba(249,101,0,0.08);
+  border: 1px solid rgba(249,101,0,0.3);
+  color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600;
+  cursor: pointer; text-align: left;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
   font-family: 'Source Sans 3', sans-serif;
+  display: flex; align-items: center; gap: 10px;
 }
-.chat-qr:hover { background: rgba(249,101,0,0.2); }
-
-.chat-input-area {
-  padding: 12px 16px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  display: flex; gap: 10px; align-items: center;
-  flex-shrink: 0;
+.chat-option:hover { background: rgba(249,101,0,0.18); border-color: var(--color-primary); transform: translateX(4px); }
+.chat-option .opt-icon { font-size: 16px; flex-shrink: 0; }
+.chat-wa-btn {
+  margin: 0 20px 20px;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  background: #25D366; color: #fff;
+  font-family: 'Source Sans 3', sans-serif; font-size: 13px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 14px 20px; border-radius: 12px; border: none;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
 }
-.chat-input {
-  flex: 1; background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 50px; padding: 10px 16px;
-  font-family: 'Source Sans 3', sans-serif; font-size: 14px;
-  color: #fff; outline: none; transition: border-color 0.2s;
-}
-.chat-input::placeholder { color: rgba(255,255,255,0.25); }
-.chat-input:focus { border-color: var(--color-primary); }
-.chat-send {
-  width: 40px; height: 40px; border-radius: 50%;
-  background: var(--color-primary); border: none; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; transition: background 0.2s, transform 0.1s;
-}
-.chat-send:hover { background: var(--color-primary-dark); transform: scale(1.05); }
-.chat-send:disabled { background: rgba(255,255,255,0.1); cursor: not-allowed; transform: none; }
-.chat-send svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; }
+.chat-wa-btn:hover { background: #1fb85a; transform: translateY(-2px); }
+.chat-wa-btn svg { width: 18px; height: 18px; fill: #fff; flex-shrink: 0; }
 </style>
 
-<!-- Chat Button -->
-<button id="se-chat-btn" aria-label="Abrir chat">
-  <div class="chat-badge"></div>
-  <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+<button id="se-chat-btn" aria-label="Falar no WhatsApp">
+  <div class="chat-pulse"></div>
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2C6.477 2 2 6.477 2 12c0 1.99.586 3.842 1.599 5.394L2 22l4.753-1.582A9.94 9.94 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
 </button>
 
-<!-- Chat Window -->
 <div id="se-chat-window" role="dialog" aria-label="Chat Sales Elevator">
   <div class="chat-header">
     <div class="chat-header-info">
-      <div class="chat-avatar">
+      <div class="chat-avatar-wrap">
         <svg viewBox="0 0 38 38"><polygon points="5,28 19,14 33,28 29,28 19,18 9,28" fill="#c25200" opacity="0.85"/><polygon points="5,20 19,6 33,20 29,20 19,10 9,20" fill="#fff"/></svg>
+        <div class="chat-online"></div>
       </div>
       <div class="chat-header-text">
         <h4>Sales Elevator</h4>
-        <p>Especialista em Crescimento Comercial</p>
+        <p>Online agora · Resposta rápida</p>
       </div>
     </div>
-    <button class="chat-close" id="se-chat-close" aria-label="Fechar chat">
+    <button class="chat-close" id="se-chat-close" aria-label="Fechar">
       <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
   </div>
-  <div class="chat-messages" id="chatMessages"></div>
-  <div class="chat-quick-replies" id="chatQuickReplies"></div>
-  <div class="chat-input-area">
-    <input type="text" class="chat-input" id="chatInput" placeholder="Digite sua mensagem..." autocomplete="off">
-    <button class="chat-send" id="chatSend" aria-label="Enviar">
-      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-    </button>
+  <div class="chat-body">
+    <div class="chat-bot-bubble">
+      Olá! 👋 Sou o assistente do <strong>Sales Elevator</strong>.<br><br>
+      Como posso te ajudar hoje?
+    </div>
   </div>
+  <div class="chat-options" id="chatOptions">
+    <button class="chat-option" data-msg="Quero aumentar minhas vendas e conhecer as soluções do Sales Elevator"><span class="opt-icon">📈</span>Quero crescer minhas vendas</button>
+    <button class="chat-option" data-msg="Quero saber mais sobre diagnóstico gratuito do Sales Elevator"><span class="opt-icon">🎯</span>Quero um diagnóstico gratuito</button>
+    <button class="chat-option" data-msg="Tenho dúvidas sobre os serviços e preços do Sales Elevator"><span class="opt-icon">💬</span>Tenho dúvidas sobre os serviços</button>
+    <button class="chat-option" data-msg="Tenho interesse em trabalhar no Sales Elevator e quero enviar meu currículo"><span class="opt-icon">💼</span>Quero trabalhar na empresa</button>
+  </div>
+  <a id="chatWaLink" href="#" target="_blank" rel="noopener noreferrer" class="chat-wa-btn" style="display:none">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2C6.477 2 2 6.477 2 12c0 1.99.586 3.842 1.599 5.394L2 22l4.753-1.582A9.94 9.94 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+    Falar no WhatsApp →
+  </a>
 </div>
 
 <script>
-// =============================================
-// CHAT WIDGET — Sales Elevator
-// CONFIGURAÇÃO: insira sua chave OpenAI abaixo
-// =============================================
-const OPENAI_API_KEY = 'SUA_CHAVE_OPENAI_AQUI';
-
-const SYSTEM_PROMPT = `Você é o assistente de vendas inteligente do Sales Elevator, uma plataforma brasileira de automação comercial para empresas B2B.
-
-SEU OBJETIVO PRINCIPAL: Identificar se o visitante é um LEAD (empresa/empreendedor buscando crescer vendas) ou um CANDIDATO (pessoa buscando emprego) e agir conforme o caso.
-
-PARA LEADS (empresas/empreendedores):
-- Entenda o problema comercial deles de forma consultiva
-- Faça perguntas para qualificar: tamanho do time, maior dor atual, receita mensal aproximada
-- Apresente como o Sales Elevator resolve exatamente esse problema
-- Use provas sociais relevantes (ex: "Um cliente similar ao seu negócio aumentou conversão de 18% para 41% em 90 dias")
-- SEMPRE direcione para o diagnóstico gratuito no formulário da página
-- Seja caloroso, empático e use linguagem brasileira natural
-
-PARA CANDIDATOS (busca de emprego/vagas):
-- Seja simpático e direto
-- Informe que temos uma página específica para candidaturas
-- Direcione para: trabalhe-conosco.html
-- Encerre a conversa de forma elegante
-
-REGRAS:
-- Responda sempre em português brasileiro
-- Respostas concisas (máximo 3 frases por mensagem)
-- Faça uma pergunta por vez para guiar a conversa
-- Se o lead fornecer nome, e-mail ou WhatsApp, confirme e informe que já notificou o time
-- Nunca invente dados, números ou cases que não existam
-- Nunca seja insistente ou pressione de forma desagradável`;
-
+// WhatsApp Chat Widget
+const WA_NUMBER = '5531999999999'; // TODO: substituir pelo número real
 const chatBtn = document.getElementById('se-chat-btn');
 const chatWindow = document.getElementById('se-chat-window');
 const chatClose = document.getElementById('se-chat-close');
-const chatMessages = document.getElementById('chatMessages');
-const chatInput = document.getElementById('chatInput');
-const chatSend = document.getElementById('chatSend');
-const chatQuickReplies = document.getElementById('chatQuickReplies');
+const chatOptions = document.getElementById('chatOptions');
+const chatWaLink = document.getElementById('chatWaLink');
 
-let chatHistory = [];
-let isOpen = false;
-let isTyping = false;
-let chatStarted = false;
-
-chatBtn.addEventListener('click', () => toggleChat(true));
-chatClose.addEventListener('click', () => toggleChat(false));
-
-function toggleChat(open) {
-  isOpen = open;
-  chatWindow.classList.toggle('open', open);
-  chatBtn.style.display = open ? 'none' : 'flex';
-  if (open && !chatStarted) { chatStarted = true; startChat(); }
-  if (open) setTimeout(() => chatInput.focus(), 300);
-}
-
-function startChat() {
-  const welcome = 'Olá! Sou o assistente do Sales Elevator. Estou aqui para ajudar você a escalar suas vendas — ou tirar dúvidas sobre como trabalhar conosco. 😊\n\nComo posso te ajudar hoje?';
-  addBotMessage(welcome);
-  showQuickReplies([
-    'Quero crescer minhas vendas',
-    'Tenho um time comercial',
-    'Quero trabalhar na empresa'
-  ]);
-}
-
-function showQuickReplies(options) {
-  chatQuickReplies.innerHTML = '';
-  options.forEach(opt => {
-    const btn = document.createElement('button');
-    btn.className = 'chat-qr';
-    btn.textContent = opt;
-    btn.addEventListener('click', () => {
-      chatQuickReplies.innerHTML = '';
-      sendMessage(opt);
-    });
-    chatQuickReplies.appendChild(btn);
-  });
-}
-
-function addBotMessage(text) {
-  const div = document.createElement('div');
-  div.className = 'chat-bubble bot';
-  div.textContent = text;
-  chatMessages.appendChild(div);
-  scrollToBottom();
-}
-
-function addUserMessage(text) {
-  const div = document.createElement('div');
-  div.className = 'chat-bubble user';
-  div.textContent = text;
-  chatMessages.appendChild(div);
-  scrollToBottom();
-}
-
-function showTypingIndicator() {
-  const div = document.createElement('div');
-  div.className = 'chat-typing';
-  div.id = 'typingIndicator';
-  div.innerHTML = '<span></span><span></span><span></span>';
-  chatMessages.appendChild(div);
-  scrollToBottom();
-}
-
-function removeTypingIndicator() {
-  const el = document.getElementById('typingIndicator');
-  if (el) el.remove();
-}
-
-function scrollToBottom() {
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-async function sendMessage(text) {
-  if (!text.trim() || isTyping) return;
-  chatQuickReplies.innerHTML = '';
-  addUserMessage(text);
-  chatInput.value = '';
-  chatHistory.push({ role: 'user', content: text });
-
-  isTyping = true;
-  chatSend.disabled = true;
-  showTypingIndicator();
-
-  try {
-    const reply = await fetchAIReply();
-    removeTypingIndicator();
-    addBotMessage(reply);
-    chatHistory.push({ role: 'assistant', content: reply });
-
-    // Auto-suggest quick replies based on conversation stage
-    if (chatHistory.length <= 4) {
-      const lowerText = text.toLowerCase();
-      if (lowerText.includes('trabalh') || lowerText.includes('vaga') || lowerText.includes('emprego')) {
-        showQuickReplies(['Ver página de vagas']);
-      } else if (chatHistory.length === 2) {
-        showQuickReplies(['Meu time tem até 5 pessoas', 'Tenho 6 a 15 vendedores', 'Sou solo / autônomo']);
-      }
-    }
-  } catch (err) {
-    removeTypingIndicator();
-    addBotMessage('Desculpe, tive um problema técnico. Por favor, preencha o formulário abaixo e nossa equipe entra em contato em até 24h!');
-  }
-
-  isTyping = false;
-  chatSend.disabled = false;
-}
-
-async function fetchAIReply() {
-  if (!OPENAI_API_KEY || OPENAI_API_KEY === 'SUA_CHAVE_OPENAI_AQUI') {
-    return getFallbackReply();
-  }
-
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${OPENAI_API_KEY}`
-    },
-    body: JSON.stringify({
-      model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        ...chatHistory
-      ],
-      max_tokens: 200,
-      temperature: 0.7
-    })
-  });
-
-  if (!response.ok) throw new Error('OpenAI error');
-  const data = await response.json();
-  return data.choices[0].message.content;
-}
-
-function getFallbackReply() {
-  const last = chatHistory[chatHistory.length - 1]?.content?.toLowerCase() || '';
-
-  if (last.includes('trabalh') || last.includes('vaga') || last.includes('emprego') || last.includes('cargo')) {
-    return 'Que ótimo! Temos uma página específica para candidaturas com um formulário completo. Acesse: trabalhe-conosco.html — você pode enviar seu currículo por lá!';
-  }
-  if (last.includes('vendas') || last.includes('crescer') || last.includes('time') || last.includes('comercial')) {
-    return 'Perfeito! Para te ajudar melhor: qual é a maior dificuldade que você enfrenta hoje no seu processo comercial? (ex: falta de leads, baixa conversão, time sem processo...)';
-  }
-  if (last.includes('lead') || last.includes('prospec') || last.includes('captação')) {
-    return 'Entendo — prospecção é a base de tudo. Temos clientes que triplicaram o volume de leads qualificados em 60 dias com nossas cadências automatizadas. Quer agendar um diagnóstico gratuito para ver se faz sentido para você?';
-  }
-  if (last.includes('convers') || last.includes('fechar') || last.includes('proposta')) {
-    return 'Taxa de conversão baixa quase sempre tem a ver com processo e follow-up. Um de nossos clientes subiu de 18% para 41% de conversão em 3 meses. Quer saber como? Preencha o formulário e nossa equipe entra em contato!';
-  }
-  if (last.includes('sim') || last.includes('quero') || last.includes('diagnóstico') || last.includes('saber mais')) {
-    return 'Ótimo! Role a página até o formulário "Diagnóstico Gratuito" e preencha seus dados — nosso time entra em contato em até 24 horas. Alguma outra dúvida?';
-  }
-  return 'Entendido! Para detalhar melhor como o Sales Elevator pode ajudar o seu negócio, recomendo solicitar um diagnóstico gratuito — é rápido e sem compromisso. Posso te ajudar em mais alguma coisa?';
-}
-
-chatSend.addEventListener('click', () => sendMessage(chatInput.value));
-chatInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(chatInput.value); } });
-
-// Reopen button after close
+chatBtn.addEventListener('click', () => {
+  chatWindow.classList.add('open');
+  chatBtn.style.display = 'none';
+});
 chatClose.addEventListener('click', () => {
+  chatWindow.classList.remove('open');
   chatBtn.style.display = 'flex';
 });
+
+chatOptions.querySelectorAll('.chat-option').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const msg = encodeURIComponent(btn.dataset.msg);
+    const isJob = btn.dataset.msg.includes('trabalhar');
+    if (isJob) {
+      window.open('trabalhe-conosco.html', '_blank');
+      chatWindow.classList.remove('open');
+      chatBtn.style.display = 'flex';
+      return;
+    }
+    chatWaLink.href = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+    chatOptions.style.display = 'none';
+    chatWaLink.style.display = 'flex';
+  });
+});
+</script>
+
+<script>
+// Testimonials Carousel
+(function() {
+  const track = document.getElementById('testimonialsTrack');
+  if (!track) return;
+  const cards = Array.from(track.children);
+  const dotsWrap = document.getElementById('carouselDots');
+  const prevBtn = document.getElementById('carouselPrev');
+  const nextBtn = document.getElementById('carouselNext');
+  let current = 0;
+
+  function getVisible() { return window.innerWidth <= 768 ? 1 : 3; }
+  function totalSlides() { return Math.ceil(cards.length / getVisible()); }
+
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    for (let i = 0; i < totalSlides(); i++) {
+      const d = document.createElement('button');
+      d.className = 'carousel-dot' + (i === current ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+    }
+  }
+
+  function goTo(idx) {
+    const total = totalSlides();
+    current = (idx + total) % total;
+    const vis = getVisible();
+    const gap = 24;
+    const cardW = (track.parentElement.offsetWidth - gap * (vis - 1)) / vis;
+    track.style.transform = `translateX(-${current * vis * (cardW + gap)}px)`;
+    dotsWrap.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+  buildDots(); goTo(0);
+
+  let resizeT;
+  window.addEventListener('resize', () => { clearTimeout(resizeT); resizeT = setTimeout(() => { current = 0; buildDots(); goTo(0); }, 150); });
+
+  let sx = 0;
+  track.parentElement.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+  track.parentElement.addEventListener('touchend', e => { const d = sx - e.changedTouches[0].clientX; if (Math.abs(d) > 50) goTo(d > 0 ? current + 1 : current - 1); });
+})();
 </script>
 </body>
 </html>
