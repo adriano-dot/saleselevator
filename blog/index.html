@@ -45,7 +45,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "@context": "https://schema.org",
   "@type": "Blog",
   "name": "Blog Sales Elevator",
-  "url": "https://www.saleselevator.com.br/blog/index.html",
+  "url": "https://www.saleselevator.com.br/blog",
   "description": "Artigos sobre automação comercial, CRM, prospecção automatizada e estratégias B2B",
   "publisher": {
     "@type": "Organization",
@@ -62,85 +62,104 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 html{scroll-behavior:smooth}
 body{font-family:var(--font);color:var(--text);overflow-x:hidden;background:#fff}
 a{text-decoration:none;color:inherit}
-img{display:block;max-width:100%}
+img{display:block;max-width:100%;height:auto}
 .container{max-width:1200px;margin:0 auto;padding:0 24px}
 
 /* NAVBAR */
 .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 40px;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(13,13,13,0.97);border-bottom:1px solid rgba(255,255,255,0.08)}
 .navbar-logo{display:flex;align-items:center;gap:12px}
-.navbar-logo svg{width:38px;height:38px}
+.navbar-logo svg{width:38px;height:38px;flex-shrink:0}
 .navbar-logo-text{display:flex;flex-direction:column;line-height:1.1}
 .navbar-logo-text span:first-child{font-weight:900;font-size:15px;color:#fff;letter-spacing:1px;text-transform:uppercase}
 .navbar-logo-text span:last-child{font-weight:300;font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:2px;text-transform:uppercase}
-.navbar-back{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.6);transition:color .2s}
+.navbar-back{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.6);transition:color .2s;white-space:nowrap}
 .navbar-back:hover{color:var(--primary)}
-.navbar-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+.navbar-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
 
 /* HERO */
 .blog-hero{background:var(--dark);padding:130px 0 80px;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,0.06)}
 .blog-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(249,101,0,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(249,101,0,0.04) 1px,transparent 1px);background-size:48px 48px}
 .blog-hero-inner{position:relative;z-index:1;text-align:center}
 .blog-badge{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--primary);background:rgba(249,101,0,0.12);border:1px solid rgba(249,101,0,0.3);padding:8px 20px;border-radius:50px;margin-bottom:24px}
-.blog-hero h1{font-size:clamp(32px,5vw,56px);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.5px;margin-bottom:20px}
+.blog-hero h1{font-size:clamp(28px,5vw,56px);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.5px;margin-bottom:20px}
 .blog-hero h1 span{color:var(--primary)}
-.blog-hero p{font-size:18px;color:rgba(255,255,255,0.55);max-width:580px;margin:0 auto 36px;line-height:1.7}
+.blog-hero p{font-size:clamp(15px,2vw,18px);color:rgba(255,255,255,0.55);max-width:580px;margin:0 auto 36px;line-height:1.7}
 
 /* FILTER TABS */
 .blog-filters{background:#fff;border-bottom:2px solid var(--border);position:sticky;top:72px;z-index:100;padding:0}
-.filter-inner{display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+.filter-inner{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .filter-inner::-webkit-scrollbar{display:none}
-.filter-btn{padding:18px 24px;font-family:var(--font);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s}
+.filter-btn{padding:16px 20px;font-family:var(--font);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s;flex-shrink:0}
 .filter-btn.active,.filter-btn:hover{color:var(--primary);border-bottom-color:var(--primary)}
 
 /* BLOG GRID */
-.blog-section{padding:80px 0 120px;background:var(--bg)}
-.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:0}
-.blog-card{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:.3s;display:flex;flex-direction:column}
-.blog-card:hover{transform:translateY(-5px);box-shadow:0 20px 56px rgba(0,0,0,0.1);border-color:transparent}
-.blog-card-img{height:200px;overflow:hidden;position:relative;background:var(--dark)}
+.blog-section{padding:60px 0 100px;background:var(--bg)}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.blog-card{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:.3s;display:flex;flex-direction:column;min-width:0}
+.blog-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.1);border-color:transparent}
+.blog-card-img{height:200px;overflow:hidden;position:relative;background:var(--dark);flex-shrink:0}
 .blog-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
-.blog-card:hover .blog-card-img img{transform:scale(1.06)}
-.blog-card-body{padding:28px;flex:1;display:flex;flex-direction:column}
-.card-category{display:inline-block;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--primary);background:rgba(249,101,0,0.08);border:1px solid rgba(249,101,0,0.2);padding:4px 12px;border-radius:50px;margin-bottom:14px}
-.card-title{font-size:18px;font-weight:800;color:var(--text);line-height:1.3;margin-bottom:12px}
+.blog-card:hover .blog-card-img img{transform:scale(1.05)}
+.blog-card-body{padding:24px;flex:1;display:flex;flex-direction:column;min-width:0}
+.card-category{display:inline-block;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--primary);background:rgba(249,101,0,0.08);border:1px solid rgba(249,101,0,0.2);padding:4px 12px;border-radius:50px;margin-bottom:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.card-title{font-size:17px;font-weight:800;color:var(--text);line-height:1.35;margin-bottom:10px;word-break:break-word}
 .card-title:hover{color:var(--primary)}
-.card-excerpt{font-size:14px;color:var(--muted);line-height:1.65;flex:1;margin-bottom:20px}
-.card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--border)}
-.card-read-time{font-size:12px;color:var(--muted)}
-.card-link{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--primary);transition:gap .2s}
+.card-excerpt{font-size:14px;color:var(--muted);line-height:1.65;flex:1;margin-bottom:16px;word-break:break-word}
+.card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--border);gap:8px;flex-wrap:wrap}
+.card-read-time{font-size:12px;color:var(--muted);white-space:nowrap}
+.card-link{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--primary);transition:gap .2s;white-space:nowrap}
 .card-link:hover{gap:10px}
-.card-link svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5}
+.card-link svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;flex-shrink:0}
 
 /* FEATURED (first card) */
 .blog-card.featured{grid-column:1/-1}
-.blog-card.featured .blog-card-img{height:320px}
-.blog-card.featured .blog-card-img img{height:320px}
-.blog-card.featured .card-title{font-size:24px}
-.blog-card.featured .card-excerpt{font-size:16px}
+.blog-card.featured .blog-card-img{height:300px}
+.blog-card.featured .card-title{font-size:22px}
+.blog-card.featured .card-excerpt{font-size:15px}
 
 /* CTA STRIP */
 .blog-cta{background:linear-gradient(135deg,var(--dark),#1a0800);padding:80px 0;text-align:center;position:relative;overflow:hidden}
 .blog-cta::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(249,101,0,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(249,101,0,0.05) 1px,transparent 1px);background-size:48px 48px}
 .blog-cta-inner{position:relative;z-index:1}
-.blog-cta h2{font-size:clamp(24px,3.5vw,40px);font-weight:900;color:#fff;margin-bottom:12px}
+.blog-cta h2{font-size:clamp(22px,3.5vw,40px);font-weight:900;color:#fff;margin-bottom:12px}
 .blog-cta p{font-size:16px;color:rgba(255,255,255,0.5);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto}
 .btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--primary);color:#fff;font-family:var(--font);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:16px 32px;border-radius:50px;border:2px solid var(--primary);transition:.3s}
 .btn-primary:hover{background:var(--primary-dark);border-color:var(--primary-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(249,101,0,.35)}
 
 /* FOOTER */
-footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24px}
+footer{background:#080808;border-top:3px solid var(--primary);padding:40px 0 24px}
 .footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
 .footer-logo{display:flex;align-items:center;gap:10px}
-.footer-logo svg{width:32px;height:32px}
+.footer-logo svg{width:32px;height:32px;flex-shrink:0}
 .footer-logo-text{display:flex;flex-direction:column;line-height:1.1}
 .footer-logo-text span:first-child{font-weight:900;font-size:13px;color:#fff;letter-spacing:1px;text-transform:uppercase}
 .footer-logo-text span:last-child{font-weight:300;font-size:9px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase}
-.footer-links{display:flex;gap:20px;flex-wrap:wrap}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
 .footer-links a{font-size:13px;color:rgba(255,255,255,0.3);transition:color .2s}
 .footer-links a:hover{color:var(--primary)}
 
-@media(max-width:1024px){.blog-grid{grid-template-columns:repeat(2,1fr)}.blog-card.featured{grid-column:1/-1}}
-@media(max-width:768px){.navbar{padding:0 20px}.blog-grid{grid-template-columns:1fr}.blog-card.featured{grid-column:auto}}
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .blog-grid{grid-template-columns:repeat(2,1fr)}
+  .blog-card.featured{grid-column:1/-1}
+}
+@media(max-width:768px){
+  .navbar{padding:0 16px}
+  .navbar-logo-text span:last-child{display:none}
+  .blog-hero{padding:100px 0 60px}
+  .blog-grid{grid-template-columns:1fr;gap:16px}
+  .blog-card.featured{grid-column:auto}
+  .blog-card.featured .blog-card-img{height:200px}
+  .blog-card.featured .card-title{font-size:18px}
+  .blog-card.featured .card-excerpt{font-size:14px}
+  .blog-section{padding:40px 0 60px}
+  .blog-cta{padding:60px 0}
+  .container{padding:0 16px}
+}
+@media(max-width:480px){
+  .filter-btn{padding:14px 14px;font-size:11px}
+  .card-footer{flex-direction:column;align-items:flex-start;gap:10px}
+}
 </style>
 </head>
 <body>
@@ -185,22 +204,17 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
     <div class="blog-grid">
 
       <!-- POST 1 — FEATURED -->
-      <article class="blog-card featured">
+      <article class="blog-card featured" data-filter="automacao">
         <div class="blog-card-img">
-          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=640&fit=crop&auto=format&q=80" alt="Automação de processo comercial" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=600&fit=crop&auto=format&q=80" alt="Automação de processo comercial" loading="lazy">
         </div>
         <div class="blog-card-body">
           <span class="card-category">Automação Comercial</span>
           <a href="/blog/como-automatizar-processo-comercial"><h2 class="card-title">Como Automatizar Seu Processo Comercial e Vender 3x Mais</h2></a>
           <p class="card-excerpt">Descubra o passo a passo para automatizar cadências de prospecção, follow-up e CRM — e transformar sua operação comercial em uma máquina de vendas previsível que funciona sem depender de heroísmo individual.</p>
           <div class="card-footer">
-            <span class="card-read-time">8 min de leitura · 18 abr 2025</span>
-            <a href="/blog/como-automatizar-processo-comercial" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          <a href="como-automatizar-processo-comercial"><h2 class="card-title">Como Automatizar Seu Processo Comercial e Vender 3x Mais</h2></a>
-          <p class="card-excerpt">Descubra o passo a passo para automatizar cadências de prospecção, follow-up e CRM — e transformar sua operação comercial em uma máquina de vendas previsível que funciona sem depender de heroísmo individual.</p>
-          <div class="card-footer">
-            <span class="card-read-time">8 min de leitura · 18 abr 2025</span>
-            <a href="como-automatizar-processo-comercial" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <span class="card-read-time">8 min · 18 abr 2025</span>
+            <a href="/blog/como-automatizar-processo-comercial" class="card-link">LER ARTIGO <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
           </div>
         </div>
       </article>
@@ -216,12 +230,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
           <p class="card-excerpt">Entenda como um CRM bem implementado transforma o pipeline de vendas, aumenta a taxa de conversão e elimina a dependência de planilhas e memória.</p>
           <div class="card-footer">
             <span class="card-read-time">7 min · 18 abr 2025</span>
-            <a href="/blog/o-que-e-crm-para-vendas-b2b" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          <a href="o-que-e-crm-para-vendas-b2b"><h2 class="card-title">O Que é CRM para Vendas B2B e Por Que Sua Empresa Precisa</h2></a>
-          <p class="card-excerpt">Entenda como um CRM bem implementado transforma o pipeline de vendas, aumenta a taxa de conversão e elimina a dependência de planilhas e memória.</p>
-          <div class="card-footer">
-            <span class="card-read-time">7 min · 18 abr 2025</span>
-            <a href="o-que-e-crm-para-vendas-b2b" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="/blog/o-que-e-crm-para-vendas-b2b" class="card-link">LER ARTIGO <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
           </div>
         </div>
       </article>
@@ -237,7 +246,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
           <p class="card-excerpt">Cadências multicanal, ICP bem definido e ferramentas certas: veja como empresas B2B estão triplicando o volume de leads qualificados com prospecção automatizada.</p>
           <div class="card-footer">
             <span class="card-read-time">9 min · 18 abr 2025</span>
-            <a href="/blog/prospeccao-automatizada-guia-completo" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="/blog/prospeccao-automatizada-guia-completo" class="card-link">LER ARTIGO <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
           </div>
         </div>
       </article>
@@ -253,12 +262,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
           <p class="card-excerpt">Do topo ao fechamento: aprenda a estruturar cada etapa do funil, definir critérios de avanço e usar métricas para tornar sua receita previsível mês a mês.</p>
           <div class="card-footer">
             <span class="card-read-time">8 min · 18 abr 2025</span>
-            <a href="/blog/como-criar-funil-de-vendas" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          <a href="como-criar-funil-de-vendas"><h2 class="card-title">Como Criar um Funil de Vendas que Gera Receita Previsível</h2></a>
-          <p class="card-excerpt">Do topo ao fechamento: aprenda a estruturar cada etapa do funil, definir critérios de avanço e usar métricas para tornar sua receita previsível mês a mês.</p>
-          <div class="card-footer">
-            <span class="card-read-time">8 min · 18 abr 2025</span>
-            <a href="como-criar-funil-de-vendas" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="/blog/como-criar-funil-de-vendas" class="card-link">LER ARTIGO <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
           </div>
         </div>
       </article>
@@ -274,7 +278,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
           <p class="card-excerpt">Um playbook bem construído elimina a dependência do vendedor estrela. Veja como documentar seu processo, criar scripts e treinar o time para consistência total.</p>
           <div class="card-footer">
             <span class="card-read-time">7 min · 18 abr 2025</span>
-            <a href="/blog/playbook-de-vendas" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="/blog/playbook-de-vendas" class="card-link">LER ARTIGO <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
           </div>
         </div>
       </article>
@@ -290,12 +294,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
           <p class="card-excerpt">Benchmarks de mercado, técnicas de qualificação BANT e SPIN, scripts de objeção e automação de follow-up: o guia definitivo para converter mais leads em clientes.</p>
           <div class="card-footer">
             <span class="card-read-time">9 min · 18 abr 2025</span>
-            <a href="/blog/como-aumentar-taxa-de-conversao-vendas" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          <a href="como-aumentar-taxa-de-conversao-vendas"><h2 class="card-title">Como Aumentar a Taxa de Conversão de Vendas B2B em 2025</h2></a>
-          <p class="card-excerpt">Benchmarks de mercado, técnicas de qualificação BANT e SPIN, scripts de objeção e automação de follow-up: o guia definitivo para converter mais leads em clientes.</p>
-          <div class="card-footer">
-            <span class="card-read-time">9 min · 18 abr 2025</span>
-            <a href="como-aumentar-taxa-de-conversao-vendas" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="/blog/como-aumentar-taxa-de-conversao-vendas" class="card-link">LER ARTIGO <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
           </div>
         </div>
       </article>
@@ -311,12 +310,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
           <p class="card-excerpt">80% das vendas fecham após o 5º contato, mas a maioria dos vendedores desiste no 2º. Veja como estruturar cadências de follow-up que reativam leads e multiplicam receita.</p>
           <div class="card-footer">
             <span class="card-read-time">7 min · 18 abr 2025</span>
-            <a href="/blog/follow-up-de-vendas" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          <a href="follow-up-de-vendas"><h2 class="card-title">Follow-up de Vendas: A Estratégia que Multiplica Fechamentos</h2></a>
-          <p class="card-excerpt">80% das vendas fecham após o 5º contato, mas a maioria dos vendedores desiste no 2º. Veja como estruturar cadências de follow-up que reativam leads e multiplicam receita.</p>
-          <div class="card-footer">
-            <span class="card-read-time">7 min · 18 abr 2025</span>
-            <a href="follow-up-de-vendas" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="/blog/follow-up-de-vendas" class="card-link">LER ARTIGO <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
           </div>
         </div>
       </article>
@@ -332,12 +326,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
           <p class="card-excerpt">Taxa de conversão, CAC, LTV, ciclo de vendas, ticket médio e mais: saiba como calcular, monitorar e usar cada indicador para tomar decisões que aumentam resultado.</p>
           <div class="card-footer">
             <span class="card-read-time">10 min · 18 abr 2025</span>
-            <a href="/blog/kpis-comerciais-indicadores-vendas" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          <a href="kpis-comerciais-indicadores-vendas"><h2 class="card-title">10 KPIs Comerciais Essenciais para Gestores de Vendas</h2></a>
-          <p class="card-excerpt">Taxa de conversão, CAC, LTV, ciclo de vendas, ticket médio e mais: saiba como calcular, monitorar e usar cada indicador para tomar decisões que aumentam resultado.</p>
-          <div class="card-footer">
-            <span class="card-read-time">10 min · 18 abr 2025</span>
-            <a href="kpis-comerciais-indicadores-vendas" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="/blog/kpis-comerciais-indicadores-vendas" class="card-link">LER ARTIGO <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
           </div>
         </div>
       </article>
@@ -353,12 +342,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
           <p class="card-excerpt">Tecnologia, processos e automação como multiplicadores de produtividade: veja como empresas B2B estão dobrando receita sem aumentar o headcount proporcionalmente.</p>
           <div class="card-footer">
             <span class="card-read-time">8 min · 18 abr 2025</span>
-            <a href="/blog/como-escalar-vendas-sem-contratar" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          <a href="como-escalar-vendas-sem-contratar"><h2 class="card-title">Como Escalar Vendas sem Contratar Mais Vendedores</h2></a>
-          <p class="card-excerpt">Tecnologia, processos e automação como multiplicadores de produtividade: veja como empresas B2B estão dobrando receita sem aumentar o headcount proporcionalmente.</p>
-          <div class="card-footer">
-            <span class="card-read-time">8 min · 18 abr 2025</span>
-            <a href="como-escalar-vendas-sem-contratar" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="/blog/como-escalar-vendas-sem-contratar" class="card-link">LER ARTIGO <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
           </div>
         </div>
       </article>
@@ -374,12 +358,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
           <p class="card-excerpt">O SDR virtual trabalha 24/7, prospecta centenas de leads por semana e qualifica automaticamente. Veja o que automatizar, quais ferramentas usar e como fazer o handoff para o closer.</p>
           <div class="card-footer">
             <span class="card-read-time">8 min · 18 abr 2025</span>
-            <a href="/blog/sdr-automatizado-pre-vendas" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          <a href="sdr-automatizado-pre-vendas"><h2 class="card-title">SDR Automatizado: Como Automatizar o Pré-Vendas e Gerar Mais Leads</h2></a>
-          <p class="card-excerpt">O SDR virtual trabalha 24/7, prospecta centenas de leads por semana e qualifica automaticamente. Veja o que automatizar, quais ferramentas usar e como fazer o handoff para o closer.</p>
-          <div class="card-footer">
-            <span class="card-read-time">8 min · 18 abr 2025</span>
-            <a href="sdr-automatizado-pre-vendas" class="card-link">Ler artigo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="/blog/sdr-automatizado-pre-vendas" class="card-link">LER ARTIGO <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
           </div>
         </div>
       </article>
@@ -393,7 +372,7 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
     <div class="blog-cta-inner">
       <h2>Pronto para aplicar na prática?</h2>
       <p>Diagnóstico gratuito de 60 min com nossos especialistas — identificamos os 3 maiores gargalos do seu processo comercial.</p>
-      <a href="../index.html#contato" class="btn-primary">SOLICITAR DIAGNÓSTICO GRATUITO →</a>
+      <a href="/#contato" class="btn-primary">SOLICITAR DIAGNÓSTICO GRATUITO →</a>
     </div>
   </div>
 </section>
@@ -406,12 +385,12 @@ footer{background:#080808;border-top:3px solid var(--primary);padding:48px 0 24p
         <div class="footer-logo-text"><span>Sales Elevator</span><span>Automação Comercial</span></div>
       </div>
       <div class="footer-links">
-        <a href="../index">Home</a>
-        <a href="../nossa-historia">Nossa História</a>
-        <a href="../trabalhe-conosco">Trabalhe Conosco</a>
-        <a href="../index.html#contato">Contato</a>
-        <a href="../termos-de-uso">Termos</a>
-        <a href="../politica-de-privacidade">Privacidade</a>
+        <a href="/">Home</a>
+        <a href="/nossa-historia">Nossa História</a>
+        <a href="/trabalhe-conosco">Trabalhe Conosco</a>
+        <a href="/#contato">Contato</a>
+        <a href="/termos-de-uso">Termos</a>
+        <a href="/politica-de-privacidade">Privacidade</a>
       </div>
     </div>
   </div>
