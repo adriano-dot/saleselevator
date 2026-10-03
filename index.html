@@ -2171,6 +2171,7 @@ numberItems.forEach(el => counterObserver.observe(el));
   flex-shrink: 0; position: relative;
 }
 .chat-avatar-wrap svg { width: 24px; height: 24px; fill: #fff; }
+.chat-avatar-img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--color-primary); display: block; }
 .chat-online {
   position: absolute; bottom: 1px; right: 1px;
   width: 10px; height: 10px; border-radius: 50%;
@@ -2228,11 +2229,11 @@ numberItems.forEach(el => counterObserver.observe(el));
   <div class="chat-header">
     <div class="chat-header-info">
       <div class="chat-avatar-wrap">
-        <svg viewBox="0 0 38 38"><polygon points="5,28 19,14 33,28 29,28 19,18 9,28" fill="#c25200" opacity="0.85"/><polygon points="5,20 19,6 33,20 29,20 19,10 9,20" fill="#fff"/></svg>
+        <img src="/bianca.jpg" alt="Bianca Elevator" class="chat-avatar-img">
         <div class="chat-online"></div>
       </div>
       <div class="chat-header-text">
-        <h4>Sales Elevator</h4>
+        <h4>Bianca Elevator</h4>
         <p>Online agora · Resposta rápida</p>
       </div>
     </div>
@@ -2242,7 +2243,7 @@ numberItems.forEach(el => counterObserver.observe(el));
   </div>
   <div class="chat-body">
     <div class="chat-bot-bubble">
-      Olá! 👋 Sou o assistente do <strong>Sales Elevator</strong>.<br><br>
+      Olá! 👋 Sou a <strong>Bianca</strong>, do <strong>Sales Elevator</strong>.<br><br>
       Como posso te ajudar hoje?
     </div>
   </div>
