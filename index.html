@@ -1180,6 +1180,19 @@ footer {
   .hero-split .hero-buttons a { justify-content:center; }
   .area-pill { font-size:13.5px; padding:10px 14px; }
 }
+
+/* Card Diagnóstico ACP (link externo) */
+.acp-card { display:block; text-decoration:none; cursor:pointer; transition:var(--transition); }
+.acp-card:hover { border-color:rgba(249,101,0,.6); transform:translateY(-4px); box-shadow:0 24px 60px rgba(249,101,0,.15); }
+.acp-logo { width:52px; height:52px; border-radius:12px; background:#1a1a1a; border:1px solid rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; margin-bottom:28px; }
+.acp-logo svg { width:30px; height:30px; }
+.acp-kicker { font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--color-primary); margin-bottom:12px; }
+.acp-card h3.acp-title { font-family:var(--font-title); font-size:clamp(28px,3vw,36px); font-weight:900; text-transform:uppercase; line-height:1.05; color:#fff; letter-spacing:-.3px; margin-bottom:8px; }
+.acp-sub { font-size:13px; color:rgba(255,255,255,.45); letter-spacing:1px; margin-bottom:20px; }
+.acp-text { font-size:16px; color:rgba(255,255,255,.75); line-height:1.65; margin-bottom:30px; }
+.acp-card .acp-btn { width:auto; display:inline-flex; }
+.acp-card:hover .acp-btn { background:var(--color-primary-dark); border-color:var(--color-primary-dark); }
+.acp-card .form-disclaimer { margin-top:22px; text-align:left; }
 </style>
 </head>
 <body>
@@ -1473,7 +1486,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span>Plano de ação personalizado</span>
             <span>Projeção de resultados com seus dados reais</span>
           </div>
-          <a href="https://diagnostigoestrategico.vercel.app/" target="_blank" rel="noopener" class="btn-primary">FAZER DIAGNÓSTICO GRATUITO →</a>
+          <a href="https://diagnosticoelevator.lovable.app/interesse" class="btn-primary">FAZER DIAGNÓSTICO GRATUITO →</a>
         </div>
       </div>
     </div>
@@ -1978,37 +1991,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
-      <div class="cta-form-card reveal reveal-delay-2">
-        <h3>Solicite seu Diagnóstico</h3>
-        <p>Preenchimento em menos de 2 minutos. Nossa equipe retorna em até 24h úteis.</p>
-
-        <div class="form-group">
-          <label>Seu nome</label>
-          <input type="text" id="form-nome" placeholder="Como podemos te chamar?">
-        </div>
-        <div class="form-group">
-          <label>E-mail corporativo</label>
-          <input type="email" id="form-email" placeholder="seu@empresa.com.br">
-        </div>
-        <div class="form-group">
-          <label>WhatsApp</label>
-          <input type="tel" id="form-whatsapp" placeholder="(11) 9 0000-0000">
-        </div>
-        <div class="form-group">
-          <label>Tamanho do time comercial</label>
-          <select id="form-time">
-            <option value="" disabled selected>Selecione</option>
-            <option>Só eu (solopreneur)</option>
-            <option>2 a 5 vendedores</option>
-            <option>6 a 15 vendedores</option>
-            <option>16 a 50 vendedores</option>
-            <option>Mais de 50 vendedores</option>
-          </select>
-        </div>
-
-        <button class="btn-primary" type="button" id="form-submit">QUERO MEU DIAGNÓSTICO GRATUITO →</button>
-        <p class="form-disclaimer">🔒 Seus dados estão seguros. Não compartilhamos com terceiros e não enviamos spam.</p>
-      </div>
+      <a href="https://diagnosticoelevator.lovable.app/interesse" class="cta-form-card acp-card reveal reveal-delay-2" aria-label="Começar o Diagnóstico ACP">
+        <div class="acp-logo"><svg viewBox="0 0 38 38" fill="none"><polygon points="5,28 19,14 33,28 29,28 19,18 9,28" fill="#c25200" opacity="0.85"/><polygon points="5,20 19,6 33,20 29,20 19,10 9,20" fill="#F96500"/></svg></div>
+        <div class="acp-kicker">Bem-vindo</div>
+        <h3 class="acp-title">Bem-vindo ao Diagnóstico ACP</h3>
+        <p class="acp-sub">Arquitetura Comercial Previsível</p>
+        <p class="acp-text">Em poucos minutos você terá clareza sobre onde sua operação comercial pode evoluir. Vamos começar?</p>
+        <span class="btn-primary acp-btn">Começar →</span>
+        <p class="form-disclaimer">🔒 Seus dados são usados apenas para contato da equipe Sales Elevator.</p>
+      </a>
     </div>
   </div>
 </section>
@@ -2118,28 +2109,6 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 reveals.forEach(el => observer.observe(el));
 
-// Formulário
-document.querySelector('.cta-form-card .btn-primary').addEventListener('click', function() {
-  const inputs = document.querySelectorAll('.cta-form-card input, .cta-form-card select');
-  let allFilled = true;
-  inputs.forEach(input => {
-    if (!input.value) {
-      input.style.borderColor = 'rgba(249,101,0,0.6)';
-      allFilled = false;
-      setTimeout(() => input.style.borderColor = '', 2000);
-    }
-  });
-  if (allFilled) {
-    this.textContent = '✓ SOLICITAÇÃO ENVIADA!';
-    this.style.background = '#22c55e';
-    this.style.borderColor = '#22c55e';
-    setTimeout(() => {
-      this.textContent = 'QUERO MEU DIAGNÓSTICO GRATUITO →';
-      this.style.background = '';
-      this.style.borderColor = '';
-    }, 3000);
-  }
-});
 
 // Counter animation nos números
 const numberItems = document.querySelectorAll('.number-value');
@@ -2155,46 +2124,6 @@ numberItems.forEach(el => counterObserver.observe(el));
 </script>
 
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var btn = document.getElementById('form-submit');
-    if (!btn) return;
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      var nome = document.getElementById('form-nome')?.value || '';
-      var email = document.getElementById('form-email')?.value || '';
-      var whatsapp = document.getElementById('form-whatsapp')?.value || '';
-      var time = document.getElementById('form-time')?.value || '';
-      if (!nome || !email) {
-        alert('Por favor, preencha nome e e-mail.');
-        return;
-      }
-      btn.textContent = 'Enviando...';
-      btn.disabled = true;
-      fetch('https://script.google.com/macros/s/AKfycby8APMn-ZCG1zxTnakrKN3jecu2DVlp9txp8NdBcBu5aGcSdmpEQdcs_KHeo26flZmc/exec', {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({ nome: nome, email: email, whatsapp: whatsapp, time: time })
-      })
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        if (data.status === 'success') {
-          btn.textContent = 'Diagnóstico Solicitado! ✓';
-          btn.style.background = '#22c55e';
-        } else {
-          btn.textContent = 'QUERO MEU DIAGNÓSTICO GRATUITO →';
-          btn.disabled = false;
-          alert('Erro ao enviar. Tente novamente.');
-        }
-      })
-      .catch(function() {
-        btn.textContent = 'QUERO MEU DIAGNÓSTICO GRATUITO →';
-        btn.disabled = false;
-        alert('Erro de conexão. Tente novamente.');
-      });
-    });
-  });
-</script>
 
 <!-- ===========================
      CHAT / WHATSAPP WIDGET
