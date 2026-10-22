@@ -2408,6 +2408,9 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
   .se-field input::placeholder{color:#6d6d6d;font-weight:500}
   .se-field input:focus{border-color:#F96500}
   .se-field.is-invalid input{border-color:#ff4d4d}
+  .se-field textarea{box-sizing:border-box;width:100%;min-height:112px;resize:vertical;padding:14px;border:1px solid #303131;border-radius:6px;background:#1e1f1f;color:#fff;font:400 15px/1.5 Manrope,Arial,sans-serif}
+  .se-field textarea:focus{outline:2px solid #F96500;outline-offset:2px}
+  .se-field.is-invalid textarea{border-color:#ff6b6b}
   .se-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .se-error{display:none;margin-top:12px;font-size:13px;color:#ff6b6b;font-weight:600}
   .se-step.has-error .se-error{display:block}
@@ -2448,16 +2451,30 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
 
     <form id="seForm" novalidate>
       <div class="se-head">
-        <div class="se-meta"><span id="seStepLabel">Passo 1 de 4</span><span>~ 30 segundos</span></div>
+        <div class="se-meta"><span id="seStepLabel">Passo 1 de 6</span><span>~ 30 segundos</span></div>
         <div class="se-bar"><span id="seBar"></span></div>
       </div>
 
       <!-- honeypot anti-robô -->
       <input type="text" name="website" class="se-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-      <!-- PASSO 1 -->
       <div class="se-step is-active" data-step="1">
-        <div class="se-tag">Passo 1 · Faturamento</div>
+        <div class="se-tag">Passo 1 · Seu contato</div>
+        <h3 class="se-title">Como podemos falar com você?</h3>
+        <p class="se-desc">Conte seu nome e WhatsApp para nossa equipe entender seu momento.</p>
+        <div class="se-fields"><div class="se-field"><label for="seNome">Nome</label><input id="seNome" name="nome" type="text" placeholder="Seu nome" autocomplete="name" required></div><div class="se-field"><label for="seWhats">Telefone / WhatsApp</label><input id="seWhats" name="whatsapp" type="tel" placeholder="(11) 99999-9999" autocomplete="tel" inputmode="numeric" required></div></div>
+        <div class="se-error">Informe seu nome e um WhatsApp válido.</div>
+      </div>
+      <div class="se-step" data-step="2">
+        <div class="se-tag">Passo 2 · Seu desafio</div>
+        <h3 class="se-title">Qual é o principal desafio comercial da sua empresa?</h3>
+        <p class="se-desc">Pode ser gerar oportunidades, converter mais vendas, organizar o time ou outro desafio.</p>
+        <div class="se-field"><label for="seDesafio">Principal desafio comercial</label><textarea id="seDesafio" name="desafio_comercial" rows="4" maxlength="1000" placeholder="Conte brevemente o que precisa melhorar…" required></textarea></div>
+        <div class="se-error">Conte seu principal desafio para continuar.</div>
+      </div>
+      <!-- PASSO 1 -->
+      <div class="se-step" data-step="3">
+        <div class="se-tag">Passo 3 · Faturamento</div>
         <h3 class="se-title" id="seT1">Qual o faturamento mensal da empresa?</h3>
         <p class="se-desc">A estrutura indicada muda em cada fase. Sem julgamento.</p>
         <div class="se-opts">
@@ -2470,8 +2487,8 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
       </div>
 
       <!-- PASSO 2 -->
-      <div class="se-step" data-step="2">
-        <div class="se-tag">Passo 2 · Cargo</div>
+      <div class="se-step" data-step="4">
+        <div class="se-tag">Passo 4 · Cargo</div>
         <h3 class="se-title">Qual é o seu cargo na empresa?</h3>
         <p class="se-desc">Pra conversa já acontecer com quem decide.</p>
         <div class="se-opts">
@@ -2486,8 +2503,8 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
       </div>
 
       <!-- PASSO 3 -->
-      <div class="se-step" data-step="3">
-        <div class="se-tag">Passo 3 · Ramo</div>
+      <div class="se-step" data-step="5">
+        <div class="se-tag">Passo 5 · Ramo</div>
         <h3 class="se-title">Qual é o ramo da sua empresa?</h3>
         <p class="se-desc">Pra chegar com exemplos do jeito que o seu mercado vende.</p>
         <div class="se-opts">
@@ -2503,22 +2520,13 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
         <div class="se-error">Escolha uma opção para continuar.</div>
       </div>
 
-      <!-- PASSO 4 -->
-      <div class="se-step" data-step="4">
-        <div class="se-tag">Passo 4 · Contato</div>
-        <h3 class="se-title">Pra onde a gente te chama?</h3>
-        <p class="se-desc">Um especialista analisa suas respostas e te chama no WhatsApp para entender os gargalos da sua operação.</p>
-        <div class="se-fields">
-          <div class="se-row">
-            <div class="se-field"><label for="seNome">Nome</label><input id="seNome" name="nome" type="text" placeholder="Seu nome" autocomplete="name" required></div>
-            <div class="se-field"><label for="seEmpresa">Nome da empresa</label><input id="seEmpresa" name="empresa" type="text" placeholder="Nome da sua empresa" autocomplete="organization" required></div>
-          </div>
-          <div class="se-field"><label for="seEmail">E-mail</label><input id="seEmail" name="email" type="email" placeholder="seu@email.com" autocomplete="email" required></div>
-          <div class="se-field"><label for="seWhats">Telefone / WhatsApp</label><input id="seWhats" name="whatsapp" type="tel" placeholder="(11) 99999-9999" autocomplete="tel" inputmode="numeric" required></div>
-        </div>
+      <div class="se-step" data-step="6">
+        <div class="se-tag">Passo 6 · Sua empresa</div>
+        <h3 class="se-title">Só mais duas informações.</h3>
+        <p class="se-desc">Complete os dados para nossa equipe preparar sua análise.</p>
+        <div class="se-fields"><div class="se-field"><label for="seEmpresa">Nome da empresa</label><input id="seEmpresa" name="empresa" type="text" placeholder="Nome da sua empresa" autocomplete="organization" required></div><div class="se-field"><label for="seEmail">E-mail</label><input id="seEmail" name="email" type="email" placeholder="seu@email.com" autocomplete="email" required></div></div>
         <div class="se-error">Preencha os campos destacados para continuar.</div>
       </div>
-
       <p id="seSaveStatus" aria-live="polite" style="color:#a8a8a8;font-size:12px;margin-top:12px"></p>
       <p id="seSendError" role="alert" style="display:none;color:#ff6b6b;font-size:13px"></p>
       <div class="se-nav">
@@ -2554,13 +2562,14 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
   const saved = document.getElementById('seSaveStatus');
   const done = document.getElementById('seDone');
   const endpoint = /^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec(?:\?.*)?$/.test(config.SHEETS_URL || '') ? config.SHEETS_URL : '';
-  const stateKey = 'se_lead_progress_v2';
+  const stateKey = 'se_lead_progress_v3';
+  const totalSteps = steps.length;
   let state;
   try { state = JSON.parse(sessionStorage.getItem(stateKey) || 'null'); } catch (_) {}
   if (!state || !state.lead_id || typeof state.revision !== 'number') {
     state = {lead_id: (crypto.randomUUID ? crypto.randomUUID() : Array.from(crypto.getRandomValues(new Uint8Array(16)), byte => byte.toString(16).padStart(2,'0')).join('')), revision:0, savedRevision:0, step:0, complete:false, data:{}};
   }
-  let current = Math.max(1, Math.min(4, state.complete ? 4 : state.step + 1));
+  let current = Math.max(1, Math.min(totalSteps, state.complete ? totalSteps : state.step + 1));
   let contactTimer = null;
   let pending = null, submitting = false, completed = state.complete && state.savedRevision >= state.revision;
   let lastFocus = null, previousOverflow = '', advanceTimer = null;
@@ -2582,10 +2591,10 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
     clearTimeout(advanceTimer);
     current = step;
     steps.forEach(section => { section.classList.toggle('is-active', Number(section.dataset.step) === step); section.classList.remove('has-error'); });
-    document.getElementById('seBar').style.width = (step * 25) + '%';
-    document.getElementById('seStepLabel').textContent = 'Passo ' + step + ' de 4';
+    document.getElementById('seBar').style.width = (step / totalSteps * 100) + '%';
+    document.getElementById('seStepLabel').textContent = 'Passo ' + step + ' de ' + totalSteps;
     back.style.visibility = step > 1 ? 'visible' : 'hidden';
-    nextText.textContent = step === 4 ? 'Quero melhorar meus resultados' : 'Continuar';
+    nextText.textContent = step === totalSteps ? 'Quero melhorar meus resultados' : 'Continuar';
     error.style.display = 'none';
     const heading = steps[step - 1].querySelector('.se-title');
     heading.setAttribute('tabindex', '-1');
@@ -2595,8 +2604,8 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
   function validStep(step) {
     const section = steps[step - 1];
     let valid = true;
-    if (step < 4) valid = !!section.querySelector('input[type=radio]:checked');
-    section.querySelectorAll('.se-field input').forEach(input => {
+    if (section.querySelector('input[type=radio]')) valid = !!section.querySelector('input[type=radio]:checked');
+    section.querySelectorAll('.se-field input,.se-field textarea').forEach(input => {
       const value = input.value.trim();
       let invalid = !value;
       if (input.type === 'email') invalid = !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
@@ -2692,7 +2701,7 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
     if (!modal.classList.contains('is-open')) return;
     if (event.key === 'Escape') close();
     if (event.key === 'Tab') {
-      const fields = Array.from(modal.querySelectorAll('button,input,a[href]')).filter(el => !el.disabled && el.tabIndex >= 0 && el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden');
+      const fields = Array.from(modal.querySelectorAll('button,input,textarea,a[href]')).filter(el => !el.disabled && el.tabIndex >= 0 && el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden');
       const first = fields[0], last = fields[fields.length - 1];
       if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
@@ -2701,7 +2710,7 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
   function selected(event) {
     const input = event.currentTarget;
     const step = Number(input.closest('.se-step').dataset.step);
-    if (!input.checked || current !== step || step >= 4) return;
+    if (!input.checked || current !== step || step >= totalSteps) return;
     clearTimeout(advanceTimer);
     input.closest('.se-step').classList.remove('has-error');
     backgroundSave(step);
@@ -2713,16 +2722,16 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
     const d = whatsapp.value.replace(/\D/g,'').slice(0,11);
     whatsapp.value = d.length > 10 ? '('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7) : d.length > 6 ? '('+d.slice(0,2)+') '+d.slice(2,6)+'-'+d.slice(6) : d.length > 2 ? '('+d.slice(0,2)+') '+d.slice(2) : d.length ? '('+d : '';
   });
-  form.querySelectorAll('.se-field input').forEach(input => input.addEventListener('blur', () => {
+  form.querySelectorAll('.se-field input,.se-field textarea').forEach(input => input.addEventListener('blur', () => {
     clearTimeout(contactTimer);
-    if (input.value.trim() && !submitting && !state.complete) contactTimer = setTimeout(() => backgroundSave(3), 700);
+    if (input.value.trim() && !submitting && !state.complete) contactTimer = setTimeout(() => backgroundSave(Math.max(state.step, Number(input.closest('.se-step').dataset.step) - 1, 1)), 700);
   }));
   back.addEventListener('click', () => { if (current > 1 && !submitting) go(current - 1); });
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (submitting || completed || !validStep(current)) return;
-    if (current < 4) { backgroundSave(current); go(current+1); return; }
-    for (let step=1; step<=4; step++) if (!validStep(step)) { go(step); validStep(step); return; }
+    if (current < totalSteps) { backgroundSave(current); go(current+1); return; }
+    for (let step=1; step<=totalSteps; step++) if (!validStep(step)) { go(step); validStep(step); return; }
     clearTimeout(contactTimer);
     submitting = true; next.disabled = true; back.disabled = true;
     nextText.textContent = 'Enviando…'; error.style.display = 'none';
@@ -2733,7 +2742,7 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
       for (let attempt = 0; attempt < 3; attempt++) {
         try {
           if (attempt) progressLabel('Confirmando o recebimento…');
-          await saveProgress(4, true);
+          await saveProgress(totalSteps, true);
           lastError = null;
           break;
         } catch (err) { lastError = err; }
@@ -2769,7 +2778,7 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
   document.getElementById('seThanksRetry').addEventListener('click', () => {
     done.classList.remove('is-active');
     form.style.display = '';
-    go(4);
+    go(totalSteps);
     form.requestSubmit();
   });
   function canInvite() { return !shown && !completed && !submitting && !modal.classList.contains('is-open') && document.visibilityState !== 'hidden' && Date.now()-enteredAt >= 8000; }
