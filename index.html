@@ -2419,6 +2419,11 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
   .se-next[disabled]{opacity:.6;cursor:wait;transform:none}
   .se-foot{margin-top:18px;padding-top:14px;border-top:1px solid #262727;font-size:12px;color:#7d7d7d;line-height:1.5}
   .se-done{display:none;text-align:center;padding:24px 4px 8px}
+  .se-whatsapp{display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:14px 18px;margin-top:22px;border-radius:6px;background:#F96500;color:#111;text-decoration:none;font:800 15px Manrope,Arial,sans-serif;line-height:1.4}
+  .se-whatsapp:hover{background:#ff812b}
+  .se-whatsapp:focus-visible,.se-thanks-close:focus-visible{outline:2px solid #fff;outline-offset:4px}
+  .se-whatsapp[hidden]{display:none}
+  .se-thanks-close{display:block;margin:16px auto 0;padding:8px 12px;background:none;border:0;color:#aaa;font:600 13px Manrope,Arial,sans-serif;cursor:pointer}
   .se-done.is-active{display:block;animation:seUp .3s ease}
   .se-check{width:64px;height:64px;margin:0 auto 18px;border-radius:50%;background:rgba(249,101,0,.12);border:1px solid #F96500;display:flex;align-items:center;justify-content:center;color:#F96500;font-size:28px;font-weight:800}
   .se-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
@@ -2516,13 +2521,16 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
         <button type="button" class="se-back">← Voltar</button>
         <button type="submit" class="se-next"><span class="se-next-txt">Continuar</span> <span aria-hidden="true">↗</span></button>
       </div>
+      <a class="se-whatsapp" id="seWhatsFallback" href="https://wa.me/5515997103097?text=Ol%C3%A1%21%20Preenchi%20o%20formul%C3%A1rio%20da%20Sales%20Elevator%20e%20gostaria%20de%20falar%20sobre%20meu%20comercial." target="_blank" rel="noopener noreferrer" hidden>Falar com a equipe no WhatsApp ↗</a>
       <div class="se-foot">Usamos suas respostas para esta análise. Ao informar seu contato, você autoriza a equipe Sales Elevator a falar com você.</div>
     </form>
 
-    <div class="se-done" id="seDone">
+    <div class="se-done" id="seDone" role="status" aria-live="polite">
       <div class="se-check">✓</div>
-      <h3 class="se-title">Recebemos seus dados!</h3>
-      <p class="se-desc">O primeiro passo para um comercial com estrutura já foi dado. Em breve nosso time te chama no WhatsApp.</p>
+      <h3 class="se-title" id="seThanksTitle" tabindex="-1">Obrigado pelo seu interesse!</h3>
+      <p class="se-desc">Seus dados foram recebidos. Nossa equipe vai analisar suas respostas e entrar em contato. Se preferir, fale com um especialista agora pelo WhatsApp.</p>
+      <a class="se-whatsapp" href="https://wa.me/5515997103097?text=Ol%C3%A1%21%20Acabei%20de%20preencher%20o%20formul%C3%A1rio%20da%20Sales%20Elevator%20e%20quero%20melhorar%20os%20resultados%20do%20meu%20comercial." target="_blank" rel="noopener noreferrer">Falar com um especialista no WhatsApp ↗</a>
+      <button class="se-thanks-close" id="seThanksClose" type="button">Voltar ao site</button>
     </div>
   </div>
 </div>
@@ -2548,6 +2556,7 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
     state = {lead_id: (crypto.randomUUID ? crypto.randomUUID() : Array.from(crypto.getRandomValues(new Uint8Array(16)), byte => byte.toString(16).padStart(2,'0')).join('')), revision:0, savedRevision:0, step:0, complete:false, data:{}};
   }
   let current = Math.max(1, Math.min(4, state.complete ? 4 : state.step + 1));
+  let contactTimer = null;
   let pending = null, submitting = false, completed = state.complete && state.savedRevision >= state.revision;
   let lastFocus = null, previousOverflow = '', advanceTimer = null;
   let shown = false, scrollQueued = false;
@@ -2612,7 +2621,7 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
         const revision = state.revision;
         const data = Object.assign({}, state.data, {lead_id:state.lead_id, revision});
         const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), 20000);
+        const timer = setTimeout(() => controller.abort(), 15000);
         try {
           const response = await fetch(endpoint, {method:'POST', mode:'cors', credentials:'omit', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(data), signal:controller.signal, keepalive:true});
           if (!response.ok) throw new Error('http');
@@ -2641,6 +2650,7 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
     return flush();
   }
   function backgroundSave(step) {
+    if (submitting || completed || state.complete) return;
     saveProgress(step, false).catch(() => progressLabel('Preenchimento em andamento.'));
   }
   function open(event, reason) {
@@ -2698,27 +2708,52 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
     const d = whatsapp.value.replace(/\D/g,'').slice(0,11);
     whatsapp.value = d.length > 10 ? '('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7) : d.length > 6 ? '('+d.slice(0,2)+') '+d.slice(2,6)+'-'+d.slice(6) : d.length > 2 ? '('+d.slice(0,2)+') '+d.slice(2) : d.length ? '('+d : '';
   });
-  form.querySelectorAll('.se-field input').forEach(input => input.addEventListener('blur', () => { if (input.value.trim()) backgroundSave(3); }));
+  form.querySelectorAll('.se-field input').forEach(input => input.addEventListener('blur', () => {
+    clearTimeout(contactTimer);
+    if (input.value.trim() && !submitting && !state.complete) contactTimer = setTimeout(() => backgroundSave(3), 700);
+  }));
   back.addEventListener('click', () => { if (current > 1 && !submitting) go(current - 1); });
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (submitting || completed || !validStep(current)) return;
     if (current < 4) { backgroundSave(current); go(current+1); return; }
     for (let step=1; step<=4; step++) if (!validStep(step)) { go(step); validStep(step); return; }
+    clearTimeout(contactTimer);
     submitting = true; next.disabled = true; back.disabled = true;
     nextText.textContent = 'Enviando…'; error.style.display = 'none';
     try {
-      await saveProgress(4, true);
+      // Reuse the same ID and revision if the write succeeded but its response was lost.
+      let lastError;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        try {
+          if (attempt) progressLabel('Confirmando o recebimento…');
+          await saveProgress(4, true);
+          lastError = null;
+          break;
+        } catch (err) { lastError = err; }
+      }
+      if (lastError) throw lastError;
       if (state.savedRevision < state.revision) throw new Error('pendente');
       completed = true;
-      form.style.display = 'none'; done.classList.add('is-active');
+      showThanks();
       track('lead_diagnostico', {faturamento:state.data.faturamento, cargo:state.data.cargo, ramo:state.data.ramo});
       if (window.fbq) window.fbq('track','Lead',{content_name:'Diagnóstico gratuito'},{eventID:state.lead_id});
     } catch (_) {
-      error.textContent = 'O envio está temporariamente indisponível. Suas respostas continuam preenchidas. Tente novamente em instantes.';
+      progressLabel('A confirmação do recebimento demorou mais que o esperado.');
+      error.textContent = 'Seus dados podem já ter chegado. Você pode tentar confirmar novamente ou falar com nossa equipe no WhatsApp abaixo.';
+      document.getElementById('seWhatsFallback').hidden = false;
       error.style.display = 'block';
     } finally { submitting = false; next.disabled = false; back.disabled = false; nextText.textContent = 'Quero melhorar meus resultados'; }
   });
+  function showThanks() {
+    form.style.display = 'none';
+    done.classList.add('is-active');
+    document.getElementById('seInvite').hidden = true;
+    modal.querySelector('.se-card').scrollTop = 0;
+    const title = document.getElementById('seThanksTitle');
+    title.focus({preventScroll:true});
+  }
+  document.getElementById('seThanksClose').addEventListener('click', close);
   function canInvite() { return !shown && !completed && !submitting && !modal.classList.contains('is-open') && document.visibilityState !== 'hidden' && Date.now()-enteredAt >= 8000; }
   function checkScroll() {
     scrollQueued = false;
@@ -2736,7 +2771,7 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
     inputs.forEach(input => { if (input.type==='radio') input.checked=input.value===value; else input.value=value; });
   });
   go(current);
-  if (completed) { form.style.display='none'; done.classList.add('is-active'); }
+  if (completed) showThanks();
   else if (endpoint && state.revision>state.savedRevision) flush().catch(() => {});
 })();
 
