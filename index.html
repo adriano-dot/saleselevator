@@ -2772,7 +2772,9 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
   });
   go(current);
   if (completed) showThanks();
-  else if (endpoint && state.revision>state.savedRevision) flush().catch(() => {});
+  else if (endpoint && state.revision>state.savedRevision) flush().then(() => {
+    if (state.complete && state.savedRevision >= state.revision) { completed = true; showThanks(); }
+  }).catch(() => {});
 })();
 
 </script>
