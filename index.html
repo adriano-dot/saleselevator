@@ -2359,7 +2359,7 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
 </script>
 <!--
   POP-UP DIAGNÓSTICO GRATUITO · SALES ELEVATOR
-  Como instalar: cole TODO este bloco logo antes de </body> na sua página.
+  Como instalar: cole TODO este bloco logo antes do fechamento do body na sua página.
   Ele intercepta automaticamente todos os botões que hoje apontam para
   diagnosticoelevator.lovable.app/interesse (e qualquer link com href="#diagnostico")
   e abre o pop-up de 4 passos no lugar.
@@ -2442,6 +2442,7 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
   <div class="se-card">
     <button type="button" class="se-close" aria-label="Fechar">×</button>
     <div class="se-brand" id="seDialogTitle">Sales Elevator · Diagnóstico gratuito</div>
+    <p id="seInvite" class="se-desc" hidden></p>
 
     <form id="seForm" novalidate>
       <div class="se-head">
@@ -2571,15 +2572,22 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
     if (first && window.innerWidth > 520) setTimeout(function(){ first.focus({preventScroll:true}); }, 50);
   }
 
-  function open(e){
-    if (!endpointReady) return;
+  function open(e, reason){
+    if (modal.classList.contains('is-open')) return;
     if (e) { e.preventDefault(); ctaClicked = (e.currentTarget.innerText || '').replace(/[↗\n]/g,' ').trim(); }
+    reason = reason || 'cta';
+    automaticShown = true;
+    try { sessionStorage.setItem('se_diagnostico_seen', '1'); } catch(ignore){}
+    var invitation = document.getElementById('seInvite');
+    invitation.hidden = reason === 'cta';
+    invitation.textContent = reason === 'exit' ? 'Antes de sair: descubra onde seu comercial pode melhorar.' : 'Seu comercial pode render mais. Vamos encontrar o próximo passo?';
+    if (!e) ctaClicked = reason === 'exit' ? 'Abertura automática: saída' : 'Abertura automática: rolagem';
     lastFocus = document.activeElement;
     modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false');
     previousOverflow = document.documentElement.style.overflow;
     document.documentElement.style.overflow = 'hidden';
     modal.querySelector('.se-close').focus();
-    push('diagnostico_open');
+    push('diagnostico_open', {trigger:reason});
   }
   function close(){
     modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true');
@@ -2589,7 +2597,7 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
   }
   window.SE_openDiagnostico = open;
 
-  if (endpointReady) document.querySelectorAll(C.CTA_SELECTOR).forEach(function(a){
+  document.querySelectorAll(C.CTA_SELECTOR).forEach(function(a){
     a.removeAttribute('target');
     a.addEventListener('click', open);
   });
@@ -2607,13 +2615,29 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
     }
   });
 
-  // avança sozinho ao escolher uma opção (passos 1-3)
+  // A referência avança pelo botão Continuar: selecionar não pula etapas.
   form.querySelectorAll('input[type=radio]').forEach(function(r){
-    r.addEventListener('change', function(){
-      clearTimeout(advanceTimer);
-      var selectedStep = Number(r.closest('.se-step').dataset.step);
-      advanceTimer = setTimeout(function(){ if (cur === selectedStep && cur < total && modal.classList.contains('is-open')) go(cur + 1); }, 220);
-    });
+    r.addEventListener('change', function(){ r.closest('.se-step').classList.remove('has-error'); });
+  });
+
+  // Convite automático: uma vez por sessão, sem bloquear a saída da página.
+  var automaticShown = false, enteredAt = Date.now(), scrollQueued = false;
+  try { automaticShown = sessionStorage.getItem('se_diagnostico_seen') === '1'; } catch(ignore){}
+  function canInvite(){
+    return !automaticShown && !completed && !submitting && !modal.classList.contains('is-open') && document.visibilityState !== 'hidden' && Date.now() - enteredAt >= 8000;
+  }
+  function checkScroll(){
+    scrollQueued = false;
+    var height = document.documentElement.scrollHeight - window.innerHeight;
+    if (height > 0 && window.scrollY / height >= .65 && canInvite()) open(null,'scroll');
+  }
+  window.addEventListener('scroll', function(){
+    if (!scrollQueued && !automaticShown) { scrollQueued = true; requestAnimationFrame(checkScroll); }
+  }, {passive:true});
+  setTimeout(checkScroll, 8000);
+  document.addEventListener('mouseout', function(e){
+    if (e.relatedTarget || e.clientY > 5 || !canInvite()) return;
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) open(null,'exit');
   });
 
   // máscara de telefone BR
@@ -2696,6 +2720,7 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
 </script>
 
 <!-- SE_DIAGNOSTICO_POPUP_END -->
+
 
 </body>
 </html>
