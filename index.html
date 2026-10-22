@@ -2427,6 +2427,7 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
   .se-bia-photo{display:block;width:84px;height:84px;margin:0 auto 12px;border-radius:50%;object-fit:cover;border:3px solid #25D366}
   .se-bia-label{margin:0 0 20px;color:#bdbdbd;font:600 13px Manrope,Arial,sans-serif}
   .se-wa-icon{width:22px;height:22px;flex-shrink:0;fill:currentColor}
+  .se-thanks-close[hidden]{display:none}
   .se-done.is-active{display:block;animation:seUp .3s ease}
   .se-check{width:64px;height:64px;margin:0 auto 18px;border-radius:50%;background:rgba(249,101,0,.12);border:1px solid #F96500;display:flex;align-items:center;justify-content:center;color:#F96500;font-size:28px;font-weight:800}
   .se-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
@@ -2533,6 +2534,7 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
       <h3 class="se-title" id="seThanksTitle" tabindex="-1">Obrigado pelo seu interesse!</h3>
       <p class="se-desc">Seus dados foram recebidos. Nossa equipe vai analisar suas respostas e entrar em contato. Se preferir, fale com um especialista agora pelo WhatsApp.</p>
       <a class="se-whatsapp" href="https://wa.me/5515997103097?text=Ol%C3%A1%21%20Acabei%20de%20preencher%20o%20formul%C3%A1rio%20da%20Sales%20Elevator%20e%20quero%20melhorar%20os%20resultados%20do%20meu%20comercial." target="_blank" rel="noopener noreferrer"><svg class="se-wa-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.5 0 .1 5.4.1 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6a12 12 0 0 0 5.8 1.5h.1c6.6 0 12-5.4 12-12a12 12 0 0 0-3.6-8.4ZM12.1 22a10 10 0 0 1-5.1-1.4l-.4-.2-3.7 1 1-3.6-.3-.4A10 10 0 0 1 2 12a10 10 0 0 1 10-10 10 10 0 0 1 10 10 10 10 0 0 1-10 10Zm5.5-7.5c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1a8.2 8.2 0 0 1-2.5-1.6 9.2 9.2 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6.3-.5c.1-.2 0-.4 0-.6l-1-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.8.4s-1.1 1-1.1 2.5 1.1 2.9 1.3 3.1c.2.2 2.2 3.4 5.2 4.7l1.7.6c.7.2 1.4.2 2 .1.6-.1 1.8-.7 2.1-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.2-.6-.4Z"/></svg><span>Falar com um especialista no WhatsApp ↗</span></a>
+      <button class="se-thanks-close" id="seThanksRetry" type="button" hidden>Tentar confirmar novamente</button>
       <button class="se-thanks-close" id="seThanksClose" type="button">Voltar ao site</button>
     </div>
   </div>
@@ -2724,6 +2726,7 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
     clearTimeout(contactTimer);
     submitting = true; next.disabled = true; back.disabled = true;
     nextText.textContent = 'Enviando…'; error.style.display = 'none';
+    showThanks(false);
     try {
       // Reuse the same ID and revision if the write succeeded but its response was lost.
       let lastError;
@@ -2745,10 +2748,16 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
       progressLabel('A confirmação do recebimento demorou mais que o esperado.');
       error.textContent = 'Seus dados podem já ter chegado. Você pode tentar confirmar novamente ou falar com nossa equipe no WhatsApp abaixo.';
       document.getElementById('seWhatsFallback').hidden = false;
+      done.querySelector('.se-desc').textContent = 'Não conseguimos confirmar o recebimento agora. Suas respostas continuam salvas neste navegador. Fale com nossa equipe no WhatsApp ou tente confirmar novamente.';
+      document.getElementById('seThanksRetry').hidden = false;
       error.style.display = 'block';
     } finally { submitting = false; next.disabled = false; back.disabled = false; nextText.textContent = 'Quero melhorar meus resultados'; }
   });
-  function showThanks() {
+  function showThanks(confirmed = true) {
+    done.querySelector('.se-desc').textContent = confirmed
+      ? 'Seus dados foram recebidos. Nossa equipe vai analisar suas respostas e entrar em contato. Se preferir, fale com um especialista agora pelo WhatsApp.'
+      : 'Estamos finalizando o envio das suas respostas. Enquanto isso, você já pode falar com nossa equipe pelo WhatsApp.';
+    document.getElementById('seThanksRetry').hidden = true;
     form.style.display = 'none';
     done.classList.add('is-active');
     document.getElementById('seInvite').hidden = true;
@@ -2757,6 +2766,12 @@ document.querySelectorAll('.sol-tab').forEach(function(t){
     title.focus({preventScroll:true});
   }
   document.getElementById('seThanksClose').addEventListener('click', close);
+  document.getElementById('seThanksRetry').addEventListener('click', () => {
+    done.classList.remove('is-active');
+    form.style.display = '';
+    go(4);
+    form.requestSubmit();
+  });
   function canInvite() { return !shown && !completed && !submitting && !modal.classList.contains('is-open') && document.visibilityState !== 'hidden' && Date.now()-enteredAt >= 8000; }
   function checkScroll() {
     scrollQueued = false;
